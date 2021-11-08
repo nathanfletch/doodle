@@ -90,9 +90,10 @@ export default class DoodlePage extends Component {
     });
   }
   render() {
+    // convert tool array to a simple key-value object
     const toolObject = {};
     this.state.tools.forEach(tool => {
-      toolObject[tool.name] = tool.value
+      toolObject[tool.name.toLowerCase()] = tool.value
     });
     console.log(toolObject)
     return (
