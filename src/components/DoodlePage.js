@@ -90,9 +90,14 @@ export default class DoodlePage extends Component {
     });
   }
   render() {
+    const toolObject = {};
+    this.state.tools.forEach(tool => {
+      toolObject[tool.name] = tool.value
+    });
+    console.log(toolObject)
     return (
       <React.Fragment>
-        <DoodleCanvas />
+        <DoodleCanvas tools={toolObject}/>
         <button onClick={this.handleClick}>{this.state.toolBarShowing ? "Hide Toolbar" : "Show Toolbar"}</button>
         {this.state.toolBarShowing ? <ToolBar handleToolEdit={this.handleToolEdit} tools={this.state.tools} /> : null}
       </React.Fragment>

@@ -1,38 +1,55 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-export default function DoodleCanvas() {
-  const canvasRef = React.useRef(null)
+
+export default function DoodleCanvas(props) {
+  const canvasRef = React.useRef(null);
+  let ctx = null;
 
   const [drawing, setDrawing] = React.useState(false);
-  // const [coords, setCoords] = React.useState({x: null, y: null});
+  const [coords, setCoords] = React.useState({ x: null, y: null });
   // const [previousOffsets, setPreviousOffsets] = React.useState([]);
-  
-  React.useEffect(() => {
-    canvasRef.current.getContext('2d')
-  }, [])
 
+  function draw(e) {
+    console.log(e);
+    console.log("drawing");
+    ctx.strokeStyle = `hsla(${props.hue}, ${props.saturation}%, ${props.lightness}%, ${props.opacity}%)`;
+    ctx.moveTo(coords.x, coords.y);
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+
+  }
+
+  React.useEffect(() => {
+    ctx = canvasRef.current.getContext("2d");
+  }, []);
 
   return (
     <canvas
       width={window.innerWidth}
       height={window.innerHeight}
-      
-      onMouseDown ={(e) => {
+      onMouseDown={(e) => {
+        console.log(e);
+        console.log(e.nativeEvent);
         console.log("down");
-        console.log(`drawing: ${drawing}`);
         setDrawing(true);
+        setCoords({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
       }}
-      onMouseMove ={(e) => {
-        if(drawing) 
-        console.log("drawing");
+      onMouseMove={(e) => {
+        if (drawing) {
+          draw(e.nativeEvent);
+        }
       }}
-      onMouseUp ={(e) => {
+      onMouseUp={(e) => {
         console.log("up");
-        console.log(`drawing: ${drawing}`);
         setDrawing(false);
+        setCoords({ x: null, y: null });
       }}
       ref={canvasRef}
-      id="doodle-canvas"
     ></canvas>
   );
+}
+
+DoodleCanvas.propTypes = {
+  tools: PropTypes.object,
 }
