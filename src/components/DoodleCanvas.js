@@ -19,6 +19,9 @@ export default function DoodleCanvas(props) {
 
   function draw(ctx, e) {
     ctx.strokeStyle = `hsla(${localHue}, ${props.tools.saturation}%, ${props.tools.lightness}%, ${props.tools.opacity}%)`;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.lineWidth = props.tools.width;
     ctx.beginPath();
 
     for (let i = 0; i < props.tools.number; i++) {
@@ -52,7 +55,7 @@ export default function DoodleCanvas(props) {
 
   return (
     <canvas
-      width={window.innerWidth}
+      width={window.innerWidth - 150}
       height={window.innerHeight}
       onMouseDown={(e) => {
         setDrawing(true);

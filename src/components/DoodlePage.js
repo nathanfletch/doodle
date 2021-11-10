@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import DoodleCanvas from "./DoodleCanvas";
-import ToolBar from "./ToolBar";
-
+import SideBar from "./SideBar";
 
 export default class DoodlePage extends Component {
   constructor() {
     super();
     this.state = {
-      toolBarShowing: true,
+      sideBarShowing: true,
       
       tools: [
         {
@@ -79,7 +78,7 @@ export default class DoodlePage extends Component {
   }
   
   handleClick = () => {
-    this.setState(prevState => ({toolBarShowing : !prevState.toolBarShowing}));
+    this.setState(prevState => ({sideBarShowing : !prevState.sideBarShowing}));
   }
 
   handleToolEdit = (updatedTool) => {
@@ -90,17 +89,18 @@ export default class DoodlePage extends Component {
     });
   }
   render() {
-    // convert tool array to a simple key-value object
+    // convert tool array to a simple key-value object easy for doodlecanvas to use.
     const toolObject = {};
     this.state.tools.forEach(tool => {
       toolObject[tool.name.toLowerCase()] = tool.value
     });
-    console.log(toolObject)
     return (
       <React.Fragment>
         <DoodleCanvas tools={toolObject}/>
-        <button onClick={this.handleClick}>{this.state.toolBarShowing ? "Hide Toolbar" : "Show Toolbar"}</button>
-        {this.state.toolBarShowing ? <ToolBar handleToolEdit={this.handleToolEdit} tools={this.state.tools} /> : null}
+        {/* <button onClick={this.handleClick}>{this.state.sideBarShowing ? "Hide Toolbar" : "Show Toolbar"}</button> */}
+        <div id="sidebar-container">
+          <SideBar handleToolEdit={this.handleToolEdit} tools={this.state.tools} />
+        </div>
       </React.Fragment>
     )
   }
