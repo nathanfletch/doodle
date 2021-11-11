@@ -29,17 +29,17 @@ export default function DoodleCanvas(props) {
       
       const currentRadians =
         ((rotationOffset + 2) * Math.PI * (i + 1)) / props.tools.number;
-      let xOffset = props.tools.radius * Math.cos(currentRadians);
-      let yOffset = props.tools.radius * Math.sin(currentRadians);
+      let xEndLineRotationAdjustment = props.tools.radius * Math.cos(currentRadians);
+      let yEndLineRotationAdjustment = props.tools.radius * Math.sin(currentRadians);
 
       //start line
       ctx.moveTo(coords.x + rotationAdjustments.x[i], coords.y + rotationAdjustments.y[i]);
       
       //end line
-      ctx.lineTo(e.offsetX + xOffset, e.offsetY + yOffset);
+      ctx.lineTo(e.offsetX + xEndLineRotationAdjustment, e.offsetY + yEndLineRotationAdjustment);
       setRotationAdjustments(prevRotationAdjustments => {
-        prevRotationAdjustments.x[i] = xOffset;
-        prevRotationAdjustments.y[i] = yOffset;
+        prevRotationAdjustments.x[i] = xEndLineRotationAdjustment;
+        prevRotationAdjustments.y[i] = yEndLineRotationAdjustment;
         return {
           x: prevRotationAdjustments.x,
           y: prevRotationAdjustments.y,
