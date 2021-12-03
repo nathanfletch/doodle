@@ -26,14 +26,29 @@ export default function SideBar({
           handleToolEdit={handleToolEdit}
           toolSet={tools.filter((t) => t.type === "Line")}
         />
-        <Button variant="outlined" onClick={handleToolReset}>
-          Reset Tools
+        <Button
+          sx={{ width: "120px", margin: "auto" }}
+          size="small"
+          variant="outlined"
+          onClick={handleToolReset}
+        >
+          Defaults
         </Button>
-        <Button variant="outlined" onClick={handleClear}>
-          Clear Doodle
+        <Button
+          sx={{ width: "120px", margin: "auto" }}
+          size="small"
+          variant="outlined"
+          onClick={handleClear}
+        >
+          Clear
         </Button>
-        <Button variant="outlined" onClick={handleSave}>
-          Save Doodle
+        <Button
+          sx={{ width: "120px", margin: "auto" }}
+          size="small"
+          variant="outlined"
+          onClick={handleSave}
+        >
+          Save
         </Button>
       </ul>
     </div>

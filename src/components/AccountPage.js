@@ -1,17 +1,17 @@
-import React from 'react'
+import React from "react";
+import SignUp from "./SignUp";
 // import PropTypes from 'prop-types'
 
 function AccountPage(props) {
   return (
     <>
-      <h1>Account Page</h1>
+      <SignUp />
     </>
-  )
+  );
 }
 
 // AccountPage.propTypes = {
 
 // }
 
-export default AccountPage
-
+export default AccountPage;
