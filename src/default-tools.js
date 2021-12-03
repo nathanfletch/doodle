@@ -2,9 +2,9 @@ export const defaultTools = [
   {
     name: "Radius",
     type: "Rotation",
-    value: 20,
+    value: 5,
     min: 1,
-    max: 50,
+    max: 25,
     id: 0,
   },
   {
@@ -26,7 +26,7 @@ export const defaultTools = [
   {
     name: "Saturation",
     type: "Color",
-    value: 50,
+    value: 75,
     min: 0,
     max: 100,
     id: 3,

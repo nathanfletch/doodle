@@ -1,4 +1,4 @@
-import { React, useState, useLayoutEffect, useRef } from "react";
+import { React, useState, useEffect, useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 export default function DoodleCanvas(props) {
@@ -28,11 +28,16 @@ export default function DoodleCanvas(props) {
     };
   }, [props.currentDoodle]);
 
+  useEffect(() => {
+    setLocalHue(hue);
+  }, [hue]);
+
   const handleDrawEnd = () => {
     setDrawing(false);
     setCoords({ x: null, y: null });
     const dataURL = canvasRef.current.toDataURL("image/png");
     props.setCurrentDoodle(dataURL);
+    setLocalHue(hue);
   };
 
   const draw = (e) => {

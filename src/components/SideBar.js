@@ -1,6 +1,7 @@
 import React from "react";
 import ToolBox from "./ToolBox";
 import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
 
 export default function SideBar({
   handleToolEdit,
@@ -25,9 +26,15 @@ export default function SideBar({
           handleToolEdit={handleToolEdit}
           toolSet={tools.filter((t) => t.type === "Line")}
         />
-        <button onClick={handleToolReset}>Reset Tools</button>
-        <button onClick={handleClear}>Clear Doodle</button>
-        <button onClick={handleSave}>Save Doodle</button>
+        <Button variant="outlined" onClick={handleToolReset}>
+          Reset Tools
+        </Button>
+        <Button variant="outlined" onClick={handleClear}>
+          Clear Doodle
+        </Button>
+        <Button variant="outlined" onClick={handleSave}>
+          Save Doodle
+        </Button>
       </ul>
     </div>
   );
