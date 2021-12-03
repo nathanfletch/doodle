@@ -1,4 +1,4 @@
-import { React } from "react"; //, useState
+import { React } from "react";
 import DoodleCanvas from "./DoodleCanvas";
 import SideBar from "./SideBar";
 import { defaultTools } from "../default-tools";
@@ -7,6 +7,10 @@ import { useLocalStorageState } from "../custom-hooks";
 export default function DoodlePage() {
   // const [sideBarShowing, setSideBarShowing] = useState(true);
   const [tools, setTools] = useLocalStorageState("tools", defaultTools);
+  const [currentDoodle, setCurrentDoodle] = useLocalStorageState(
+    "currentDoodle",
+    ""
+  );
 
   // const handleClick = () => {
   //   setSideBarShowing((prevSideBarShowing) => !prevSideBarShowing);
@@ -30,7 +34,11 @@ export default function DoodlePage() {
 
   return (
     <>
-      <DoodleCanvas tools={toolsObject} />
+      <DoodleCanvas
+        tools={toolsObject}
+        setCurrentDoodle={setCurrentDoodle}
+        currentDoodle={currentDoodle}
+      />
       {/* <button onClick={this.handleClick}>{this.state.sideBarShowing ? "Hide Toolbar" : "Show Toolbar"}</button> */}
       <div id="sidebar-container">
         <SideBar

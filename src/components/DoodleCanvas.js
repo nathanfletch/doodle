@@ -1,13 +1,14 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 export default function DoodleCanvas(props) {
   const { radius, speed, hue, saturation, lightness, opacity, number, width } =
     props.tools;
   const canvasRef = useRef(null);
-  const rotationSpeedRadians = (speed * Math.PI) / 180;
-  // let ctx = null;
+  const ctxRef = useRef(null);
 
+  const rotationSpeedRadians = (speed * Math.PI) / 180;
+  
   const [drawing, setDrawing] = useState(false);
   const [coords, setCoords] = useState({ x: null, y: null });
   const [localHue, setLocalHue] = useState(hue);
@@ -17,12 +18,27 @@ export default function DoodleCanvas(props) {
     y: [],
   });
 
-  // useEffect(() => {
-  //   const canvas = canvasRef.current;
-  //   const ctx = canvasRef.current.getContext("2d");
-  // }, []);
+  useLayoutEffect(() => {
+    ctxRef.current = canvasRef.current.getContext("2d");
+    console.log(ctxRef.current);
 
-  function draw(ctx, e) {
+    const image = new Image();
+    image.src = props.currentDoodle;
+    image.onload = () => {
+      ctxRef.current.drawImage(image, 0, 0);
+    };
+  }, [props.currentDoodle]);
+
+  const handleDrawEnd = () => {
+    setDrawing(false);
+    setCoords({ x: null, y: null });
+    const dataURL = canvasRef.current.toDataURL("image/png");
+    props.setCurrentDoodle(dataURL);
+  };
+
+  const draw = (e) => {
+    const ctx = ctxRef.current; // makes it look cleaner
+
     ctx.strokeStyle = `hsla(${localHue}, ${saturation}%, ${lightness}%, ${opacity}%)`;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -64,7 +80,7 @@ export default function DoodleCanvas(props) {
       (rotationOffset) => (rotationOffset += rotationSpeedRadians)
     );
     setLocalHue((prevLocalHue) => (prevLocalHue + 1) % 360);
-  }
+  };
 
   return (
     <canvas
@@ -76,18 +92,11 @@ export default function DoodleCanvas(props) {
       }}
       onMouseMove={(e) => {
         if (drawing) {
-          const ctx = canvasRef.current.getContext("2d");
-          draw(ctx, e.nativeEvent);
+          draw(e.nativeEvent);
         }
       }}
-      onMouseUp={(e) => {
-        setDrawing(false);
-        setCoords({ x: null, y: null });
-      }}
-      onMouseOut={(e) => {
-        setDrawing(false);
-        setCoords({ x: null, y: null });
-      }}
+      onMouseUp={handleDrawEnd}
+      onMouseOut={handleDrawEnd}
       ref={canvasRef}
     ></canvas>
   );
@@ -95,4 +104,6 @@ export default function DoodleCanvas(props) {
 
 DoodleCanvas.propTypes = {
   tools: PropTypes.object,
+  setCurrentDoodle: PropTypes.func,
+  currentDoodle: PropTypes.string,
 };

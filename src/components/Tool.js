@@ -14,7 +14,7 @@ export default function Tool(props) {
 
   return (
     <li className="sidebar-item">
-      <label for={props.tool.name}>{props.tool.name}</label>
+      <label htmlFor={props.tool.name}>{props.tool.name}</label>
       <input
         onChange={handleChange}
         type="number"

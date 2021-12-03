@@ -28,7 +28,7 @@ export default function SideBar({ handleToolEdit, handleToolReset, tools }) {
 }
 
 SideBar.propTypes = {
-  tools: PropTypes.object,
+  tools: PropTypes.array,
   handleToolEdit: PropTypes.func,
   handleToolReset: PropTypes.func,
 };
