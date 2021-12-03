@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import DoodleCanvas from "./DoodleCanvas";
 import SideBar from "./SideBar";
 

@@ -3,6 +3,11 @@ import ToolBox from "./ToolBox";
 import PropTypes from "prop-types";
 
 export default function SideBar(props) {
+
+  const handleSave = () => {
+    
+  }
+
   return (
     <div className="sidebar">
       <ul className="sidebar-list">
@@ -18,6 +23,7 @@ export default function SideBar(props) {
           handleToolEdit={props.handleToolEdit}
           toolSet={props.tools.filter((t) => t.type === "Line")}
         />
+        <button onClick={handleSave} >Save Doodle</button>
       </ul>
     </div>
   );
