@@ -1,7 +1,8 @@
-import { React, useState } from "react";
+import { React } from "react"; //, useState
 import DoodleCanvas from "./DoodleCanvas";
 import SideBar from "./SideBar";
 import { defaultTools } from "../default-tools";
+import { useLocalStorageState } from "../custom-hooks";
 
 export default function DoodlePage() {
   //refactor to fn w hooks - done
@@ -10,7 +11,7 @@ export default function DoodlePage() {
   //add reset to default button on sidebar
 
   // const [sideBarShowing, setSideBarShowing] = useState(true);
-  const [tools, setTools] = useState(defaultTools);
+  const [tools, setTools] = useLocalStorageState("tools", defaultTools);
 
   // const handleClick = () => {
   //   setSideBarShowing((prevSideBarShowing) => !prevSideBarShowing);
