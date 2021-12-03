@@ -17,6 +17,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* a {
+  text-decoration: "none";
+} */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -61,5 +64,5 @@ canvas {
 
 .menu-button {
   width: 90%;
-  margin:auto;
+  margin: auto;
 }

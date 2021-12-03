@@ -2,6 +2,7 @@ import React from "react";
 import ToolBox from "./ToolBox";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 export default function SideBar({
   handleToolEdit,
@@ -42,14 +43,16 @@ export default function SideBar({
         >
           Clear
         </Button>
-        <Button
-          sx={{ width: "120px", margin: "auto" }}
-          size="small"
-          variant="outlined"
-          onClick={handleSave}
-        >
-          Save
-        </Button>
+        <Link style={{ textDecoration: "none" }} to="/account">
+          <Button
+            sx={{ width: "120px", margin: "auto" }}
+            size="small"
+            variant="outlined"
+            onClick={handleSave}
+          >
+            Save
+          </Button>
+        </Link>
       </ul>
     </div>
   );
