@@ -5,17 +5,16 @@ import { defaultTools } from "../default-tools";
 import { useLocalStorageState } from "../custom-hooks";
 
 export default function DoodlePage() {
-  //refactor to fn w hooks - done
-  //get custom hook
-  //add local state
-  //add reset to default button on sidebar
-
   // const [sideBarShowing, setSideBarShowing] = useState(true);
   const [tools, setTools] = useLocalStorageState("tools", defaultTools);
 
   // const handleClick = () => {
   //   setSideBarShowing((prevSideBarShowing) => !prevSideBarShowing);
   // };
+
+  const handleToolReset = () => {
+    setTools(defaultTools);
+  };
 
   const handleToolEdit = (updatedTool) => {
     let toolsCopy = [...tools];
@@ -34,7 +33,11 @@ export default function DoodlePage() {
       <DoodleCanvas tools={toolsObject} />
       {/* <button onClick={this.handleClick}>{this.state.sideBarShowing ? "Hide Toolbar" : "Show Toolbar"}</button> */}
       <div id="sidebar-container">
-        <SideBar handleToolEdit={handleToolEdit} tools={tools} />
+        <SideBar
+          handleToolEdit={handleToolEdit}
+          handleToolReset={handleToolReset}
+          tools={tools}
+        />
       </div>
     </>
   );

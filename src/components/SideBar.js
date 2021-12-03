@@ -2,34 +2,33 @@ import React from "react";
 import ToolBox from "./ToolBox";
 import PropTypes from "prop-types";
 
-export default function SideBar(props) {
-
-  const handleSave = () => {
-    
-  }
+export default function SideBar({ handleToolEdit, handleToolReset, tools }) {
+  const handleSave = () => {};
 
   return (
     <div className="sidebar">
       <ul className="sidebar-list">
         <ToolBox
-          handleToolEdit={props.handleToolEdit}
-          toolSet={props.tools.filter((t) => t.type === "Rotation")}
+          handleToolEdit={handleToolEdit}
+          toolSet={tools.filter((t) => t.type === "Rotation")}
         />
         <ToolBox
-          handleToolEdit={props.handleToolEdit}
-          toolSet={props.tools.filter((t) => t.type === "Color")}
+          handleToolEdit={handleToolEdit}
+          toolSet={tools.filter((t) => t.type === "Color")}
         />
         <ToolBox
-          handleToolEdit={props.handleToolEdit}
-          toolSet={props.tools.filter((t) => t.type === "Line")}
+          handleToolEdit={handleToolEdit}
+          toolSet={tools.filter((t) => t.type === "Line")}
         />
-        <button onClick={handleSave} >Save Doodle</button>
+        <button onClick={handleToolReset}>Reset to Defaults</button>
+        <button onClick={handleSave}>Save Doodle</button>
       </ul>
     </div>
   );
 }
 
 SideBar.propTypes = {
-  name: PropTypes.object,
+  tools: PropTypes.object,
   handleToolEdit: PropTypes.func,
+  handleToolReset: PropTypes.func,
 };
