@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-//need name of toolset, current object
+
 export default function Tool(props) {
   function handleChange(e) {
     e.preventDefault();
-    console.log(e);
     const updatedTool = {
       ...props.tool,
       value: e.target.value,

@@ -8,7 +8,7 @@ export default function DoodleCanvas(props) {
   const ctxRef = useRef(null);
 
   const rotationSpeedRadians = (speed * Math.PI) / 180;
-  
+
   const [drawing, setDrawing] = useState(false);
   const [coords, setCoords] = useState({ x: null, y: null });
   const [localHue, setLocalHue] = useState(hue);
@@ -20,7 +20,6 @@ export default function DoodleCanvas(props) {
 
   useLayoutEffect(() => {
     ctxRef.current = canvasRef.current.getContext("2d");
-    console.log(ctxRef.current);
 
     const image = new Image();
     image.src = props.currentDoodle;

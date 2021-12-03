@@ -20,6 +20,12 @@ export default function DoodlePage() {
     setTools(defaultTools);
   };
 
+  const handleClear = () => {
+    setCurrentDoodle("");
+    //forcing a refresh: (without this it didn't clear the doodle - maybe because setting and reading local storage took too long)
+    window.location.reload();
+  };
+
   const handleToolEdit = (updatedTool) => {
     let toolsCopy = [...tools];
     toolsCopy[updatedTool.id] = updatedTool;
@@ -44,6 +50,7 @@ export default function DoodlePage() {
         <SideBar
           handleToolEdit={handleToolEdit}
           handleToolReset={handleToolReset}
+          handleClear={handleClear}
           tools={tools}
         />
       </div>
