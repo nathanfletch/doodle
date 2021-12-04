@@ -4,7 +4,7 @@ import SideBar from "./SideBar";
 import { defaultTools } from "../default-tools";
 import { useLocalStorageState } from "../custom-hooks";
 
-export default function DoodlePage({ currentDoodle, setCurrentDoodle }) {
+export default function DoodlePage({ currentDoodle, setCurrentDoodle, handleSave }) {
   // const [sideBarShowing, setSideBarShowing] = useState(true);
   const [tools, setTools] = useLocalStorageState("tools", defaultTools);
 
@@ -47,7 +47,9 @@ export default function DoodlePage({ currentDoodle, setCurrentDoodle }) {
           handleToolEdit={handleToolEdit}
           handleToolReset={handleToolReset}
           handleClear={handleClear}
+          handleSave={handleSave}
           tools={tools}
+          
         />
       </div>
     </>

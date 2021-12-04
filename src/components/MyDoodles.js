@@ -8,7 +8,13 @@ function MyDoodles(props) {
     </>
   )
 }
-
+/* todos:
+add button links to sidebar - details, view my doodles, signup, others' doodles
+emoji picker
+save doodles to a file to simulate db
+  save button click handler
+  
+*/
 // MyDoodles.propTypes = {
 
 // }

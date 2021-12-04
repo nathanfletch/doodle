@@ -9,9 +9,8 @@ export default function SideBar({
   handleToolReset,
   handleClear,
   tools,
+  handleSave,
 }) {
-  const handleSave = () => {};
-
   return (
     <div className="sidebar">
       <ul className="sidebar-list">
@@ -43,14 +42,48 @@ export default function SideBar({
         >
           Clear
         </Button>
+        <Button
+          sx={{ width: "120px", margin: "auto" }}
+          size="small"
+          variant="outlined"
+          onClick={handleSave}
+        >
+          Save
+        </Button>
         <Link style={{ textDecoration: "none" }} to="/account">
           <Button
             sx={{ width: "120px", margin: "auto" }}
             size="small"
             variant="outlined"
-            onClick={handleSave}
           >
-            Save
+            Sign Up
+          </Button>
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/details">
+          <Button
+            sx={{ width: "120px", margin: "auto" }}
+            size="small"
+            variant="outlined"
+          >
+            Details
+          </Button>
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/mydoodles">
+          <Button
+            sx={{ width: "120px", margin: "auto" }}
+            size="small"
+            variant="outlined"
+          >
+            MyDoodles
+          </Button>
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/browse">
+          <Button
+            sx={{ width: "120px", margin: "auto" }}
+            size="small"
+            variant="outlined"
+          >
+            Browse
           </Button>
         </Link>
       </ul>
@@ -63,4 +96,5 @@ SideBar.propTypes = {
   handleToolEdit: PropTypes.func,
   handleToolReset: PropTypes.func,
   handleClear: PropTypes.func,
+  handleSave: PropTypes.func,
 };
