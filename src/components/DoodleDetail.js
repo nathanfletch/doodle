@@ -1,6 +1,7 @@
 import React from "react"; //{ useRef, useLayoutEffect }
 // import Image from "material-ui-image"; - need aspect ratio to use this! maybe I can create a doodle data object and get it from that
 import { Box } from "@mui/material";
+import CommentSection from "./CommentSection";
 
 // import PropTypes from 'prop-types'
 
@@ -22,16 +23,8 @@ function DoodleDetail({ currentDoodle }) {
           alt="Doodle"
           style={{ width: "100%", height: "auto" }}
         />
-        {/* <Image
-          imageStyle={{ maxWidth: "100%", maxHeight: "100%" }}
-          aspectRatio={this.height / 500}
-          src={currentDoodle}
-        /> */}
       </Box>
-      {/* <Emojis />
-      <CommentSection>
-        <Comment />
-      </CommentSection> */}
+      <CommentSection />
     </>
   );
 }
