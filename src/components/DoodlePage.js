@@ -4,13 +4,9 @@ import SideBar from "./SideBar";
 import { defaultTools } from "../default-tools";
 import { useLocalStorageState } from "../custom-hooks";
 
-export default function DoodlePage() {
+export default function DoodlePage({ currentDoodle, setCurrentDoodle }) {
   // const [sideBarShowing, setSideBarShowing] = useState(true);
   const [tools, setTools] = useLocalStorageState("tools", defaultTools);
-  const [currentDoodle, setCurrentDoodle] = useLocalStorageState(
-    "currentDoodle",
-    ""
-  );
 
   // const handleClick = () => {
   //   setSideBarShowing((prevSideBarShowing) => !prevSideBarShowing);
