@@ -7,7 +7,7 @@ export default function ToolBox(props) {
   return (
     <li className="sidebar-section">
       <Box sx={{ margin: "1px" }}>
-        <h3>{props.toolSet[0].type}</h3>
+        <h4>{props.toolSet[0].type}</h4>
         <ul className="sidebar-list">
           {props.toolSet.map((t, i) => (
             <Tool handleToolEdit={props.handleToolEdit} tool={t} key={t.id} />

@@ -1,12 +1,14 @@
-import React from 'react'
+import React from "react";
+import DoodleList from "./DoodleList";
 // import PropTypes from 'prop-types'
 
-function MyDoodles(props) {
+function MyDoodles({ fakeDb }) {
   return (
     <>
-      <h1>My Doodles</h1> 
+      <h1>My Doodles</h1>
+      <DoodleList fakeDb={fakeDb} />
     </>
-  )
+  );
 }
 /* todos:
 add button links to sidebar - details, view my doodles, signup, others' doodles
@@ -19,5 +21,4 @@ save doodles to a file to simulate db
 
 // }
 
-export default MyDoodles
-
+export default MyDoodles;

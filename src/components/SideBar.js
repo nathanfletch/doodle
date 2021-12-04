@@ -68,15 +68,6 @@ export default function SideBar({
             Details
           </Button>
         </Link>
-        <Link style={{ textDecoration: "none" }} to="/mydoodles">
-          <Button
-            sx={{ width: "120px", margin: "auto" }}
-            size="small"
-            variant="outlined"
-          >
-            MyDoodles
-          </Button>
-        </Link>
         <Link style={{ textDecoration: "none" }} to="/browse">
           <Button
             sx={{ width: "120px", margin: "auto" }}
@@ -84,6 +75,15 @@ export default function SideBar({
             variant="outlined"
           >
             Browse
+          </Button>
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/mydoodles">
+          <Button
+            sx={{ width: "120px", margin: "auto" }}
+            size="small"
+            variant="outlined"
+          >
+            MyDoodles
           </Button>
         </Link>
       </ul>
