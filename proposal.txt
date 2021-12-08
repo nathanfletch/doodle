@@ -1,0 +1,36 @@
+Name of Student: Nathan Fletcher
+
+Name of Project: Doodle
+
+Project's Purpose or Goal: Have fun doodling and share it.
+
+List the absolute minimum features the project requires to meet this purpose or goal:
+
+Create beautiful doodles with a variety of tools.
+Save, share, and view your doodles.
+View, pick emojis, and comment on others' doodles.
+More detail on my Trello project board: https://trello.com/invite/b/Uabipg6z/ab8c0ede10704984d09296deebd4338f/capstone
+What tools, frameworks, libraries, APIs, modules and/or other resources (whatever is specific to your track, and your language) will you use to create this MVP? List them all here. Be specific.
+
+React 
+Firebase
+HTML Canvas
+If you finish developing the minimum viable product (MVP) with time to spare, what will you work on next? Describe these features here: Be specific.
+
+Add RGB or other filter effects in the DoodleDetail page - maybe connect to an interactive chart.
+Add more tools - fractal generators, color themes.
+Add experience points and levels to unlock more doodle tools.
+Add games - dodging bombs, projectiles, etc. as you doodle.
+What additional tools, frameworks, libraries, APIs, or other resources will these additional features require?
+
+Chart.js interactivity.
+Possibly call a color theme generator API.
+More complex Database structures in Firebase.
+Possibly React Router and Redux for learning purposes (probably not absolutely necessary for the small scale of my app or these features specifically).
+Is there anything else you'd like your instructor to know?
+
+I've been working on this since Thursday after group project presentations and have a working React app for just the basic doodle functions here: https://github.com/nathanfletch/doodle. Scroll down to edit parameters (radius, etc.)
+
+This is a refactor of the initial vanilla JS prototype I implemented here: https://github.com/nathanfletch/simple-doodle. (Make sure to hit ctrl as you doodle)
+
+Here is the Component layout diagram: https://www.figma.com/file/JkolkjMBSvKWVtGqcL2OYe/Doodle?node-id=0%3A1. 
