@@ -22,7 +22,7 @@ export default function DoodleCanvas(props) {
     ctxRef.current = canvasRef.current.getContext("2d");
 
     const image = new Image();
-    image.src = props.currentDoodle;
+    image.src = props.currentDoodle.dataUrl;
     image.onload = () => {
       ctxRef.current.drawImage(image, 0, 0);
     };
@@ -35,8 +35,9 @@ export default function DoodleCanvas(props) {
   const handleDrawEnd = () => {
     setDrawing(false);
     setCoords({ x: null, y: null });
-    const dataURL = canvasRef.current.toDataURL("image/png");
-    props.setCurrentDoodle(dataURL);
+    //add a debounce here
+    const dataUrl = canvasRef.current.toDataURL("image/png");
+    props.setCurrentDoodle({ dataUrl });
     setLocalHue(hue);
   };
 
@@ -109,5 +110,5 @@ export default function DoodleCanvas(props) {
 DoodleCanvas.propTypes = {
   tools: PropTypes.object,
   setCurrentDoodle: PropTypes.func,
-  currentDoodle: PropTypes.string,
+  currentDoodle: PropTypes.object,
 };

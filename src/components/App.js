@@ -19,17 +19,20 @@ import firestore from "../firebase";
 function App() {
   const [currentDoodle, setCurrentDoodle] = useLocalStorageState(
     "currentDoodle",
-    ""
+    {dataUrl: ""}
   );
   const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
   const [selectedDoodle, setSelectedDoodle] = useState(null);
 
   const handleSave = () => {
+    //update if has an id, create if doesn't - first update what currentDoodle is
+    // if()
     const newDoc = firestore.collection("doodles").doc();
     const doodleInfo = {
-      user: "Jones4",
       title: "MyDoodle",
-      dataUrl: currentDoodle,
+      ...currentDoodle,
+      user: "Jones4",
+      // dataUrl: currentDoodle,
       time: Date.now(),
       id: newDoc.id,
       // aspectRatio,

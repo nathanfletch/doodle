@@ -17,7 +17,7 @@ export default function DoodlePage({ currentDoodle, setCurrentDoodle, handleSave
   };
 
   const handleClear = () => {
-    setCurrentDoodle("");
+    setCurrentDoodle({dataUrl: ""});
     //forcing a refresh: (without this it didn't clear the doodle - maybe because setting and reading local storage took too long)
     window.location.reload();
   };
