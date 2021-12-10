@@ -11,11 +11,11 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
   );
   return (
     <>
-      {/* <h1>Title</h1> */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          e.target.blur();
+          console.log(e.target.elements);
+          e.target.elements[0].blur();
         }}
       >
         <h1>
