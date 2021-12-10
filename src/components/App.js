@@ -20,17 +20,21 @@ function App() {
   const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
   const [selectedDoodle, setSelectedDoodle] = useState(null);
 
+  const handleUpdate = (doodle) => {
+    console.log(`updating ${doodle.title}, id ${doodle.id}`);
+    firestore.collection("doodles").doc(doodle.id).update(doodle);
+  };
   const handleSave = () => {
     if (currentDoodle.id) {
-      console.log(`updating ${currentDoodle.title}, id ${currentDoodle.id}`);
-      const propertiesToUpdate = {
-        dataUrl: currentDoodle.dataUrl,
-        title: currentDoodle.title,
-      };
-      firestore
-        .collection("doodles")
-        .doc(currentDoodle.id)
-        .update(propertiesToUpdate);
+      handleUpdate(currentDoodle);
+      // const propertiesToUpdate = {
+      //   dataUrl: currentDoodle.dataUrl,
+      //   title: currentDoodle.title,
+      // };
+      // firestore
+      //   .collection("doodles")
+      //   .doc(currentDoodle.id)
+      //   .update(propertiesToUpdate);
     } else {
       const newDoc = firestore.collection("doodles").doc();
       const doodleInfo = {
@@ -75,6 +79,8 @@ function App() {
             <DoodleDetails
               currentDoodle={currentDoodle}
               selectedDoodle={selectedDoodle}
+              setSelectedDoodle={setSelectedDoodle}
+              handleUpdate={handleUpdate}
             />
           </Route>
           <Route exact path="/save">
@@ -88,12 +94,13 @@ function App() {
             <MyDoodles setCurrentDoodle={setCurrentDoodle} fakeDb={fakeDb} />
           </Route>
           <Route exact path="/browse">
-            <OthersDoodles setSelectedDoodle={setSelectedDoodle} />
+            <OthersDoodles  setSelectedDoodle={setSelectedDoodle} />
           </Route>
         </Switch>
-      </Router>
+      </Router> 
     </>
   );
 }
 
 export default App;
+//app -> my -> commentSection

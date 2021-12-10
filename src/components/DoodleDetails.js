@@ -7,7 +7,12 @@ import firestore from "../firebase";
 
 // import PropTypes from 'prop-types'
 
-function DoodleDetails({ selectedDoodle }) {
+function DoodleDetails({
+  handleSave,
+  selectedDoodle,
+  setSelectedDoodle,
+  handleUpdate,
+}) {
   const [displayDoodle, setDisplayDoodle] = useState(selectedDoodle || null);
   let { id } = useParams();
 
@@ -44,6 +49,18 @@ function DoodleDetails({ selectedDoodle }) {
     fetchData();
   }, [id, selectedDoodle]);
 
+  function handleCommentSubmit(commentBody) {
+    const comment = { time: Date.now(), username: "jones5", body: commentBody };
+    const commentedDoodle = {
+      ...displayDoodle,
+      comments: [...displayDoodle.comments, comment],
+    };
+    //this is bad:
+    setSelectedDoodle(commentedDoodle);
+    setDisplayDoodle(commentedDoodle);
+    handleUpdate(commentedDoodle);
+  }
+
   return displayDoodle ? (
     <>
       <h1>{displayDoodle.title}</h1>
@@ -62,7 +79,10 @@ function DoodleDetails({ selectedDoodle }) {
         >
           Save
         </Button> */}
-      <CommentSection comments={displayDoodle.comments} />
+      <CommentSection
+        comments={displayDoodle.comments}
+        handleCommentSubmit={handleCommentSubmit}
+      />
     </>
   ) : (
     <div>Loading...</div>

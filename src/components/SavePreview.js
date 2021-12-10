@@ -10,12 +10,12 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
     currentDoodle.title || "Name Your Doodle Here"
   );
 
+  // function handle 
   return (
     <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log(e.target.elements);
           e.target.elements[0].blur();
         }}
       >

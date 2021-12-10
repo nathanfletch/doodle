@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Comment from "./Comment";
 import {
   List,
@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 // import { sampleComments } from "../sample-comments";
 
-export default function Comments({ comments = [] }) {
-  // const [comments, setComments] = useState(sampleComments = [])
+export default function Comments({ handleCommentSubmit, comments = [] }) {
+  const [commentInput, setCommentInput] = useState("");
 
   const listJsx = comments.map((comment) => (
     <Comment key={comment.time} comment={comment} />
@@ -27,16 +27,27 @@ export default function Comments({ comments = [] }) {
           <ListItemAvatar>
             <Avatar>M</Avatar>
           </ListItemAvatar>
+
           <ListItemText
             primary={
-              <TextField
-                label="Leave a comment:"
-                fullWidth
-                // variant="standard"
-              />
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleCommentSubmit(commentInput);
+                }}
+              >
+                <TextField
+                  value={commentInput}
+                  onChange={(e) => setCommentInput(e.target.value)}
+                  label="Leave a comment:"
+                  fullWidth
+                  // variant="standard"
+                />
+              </form>
             }
           />
           <ListItemButton
+            onClick={() => handleCommentSubmit(commentInput)}
             variant="outlined"
             sx={{
               padding: "auto",

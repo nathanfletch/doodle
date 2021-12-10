@@ -24,6 +24,7 @@ import {
 // }));
 
 const Comment = ({ comment }) => {
+  console.log(comment);
   return (
     <React.Fragment key={comment.time}>
       <Paper key={comment.time} sx={{ margin: "10px" }}>
