@@ -17,11 +17,13 @@ function App() {
   );
   const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
   const handleSave = () => {
+    const newDoc = firestore.collection("doodle").doc();
     const doodleInfo = {
       user: "Jones4",
       title: "MyDoodle",
       dataUrl: currentDoodle,
       time: Date.now(),
+      id: newDoc.id,
       // aspectRatio,
       comments: sampleComments,
       // emojis: [
@@ -32,8 +34,10 @@ function App() {
       // ]
     };
     setFakeDb((prevDb) => [...prevDb, doodleInfo]);
-    firestore.collection('doodle').add(doodleInfo);
-    console.log(firestore);
+
+    newDoc.set(doodleInfo);
+
+    console.log(newDoc);
   };
 
   return (
