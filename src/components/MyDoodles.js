@@ -2,9 +2,18 @@ import React, { useEffect, useState } from "react";
 import DoodleList from "./DoodleList";
 import firestore from "../firebase";
 // import PropTypes from 'prop-types'
+import { useHistory } from "react-router-dom";
 
-function MyDoodles({ handleSelect }) {
+function MyDoodles({ setCurrentDoodle }) {
   const [doodles, setDoodles] = useState([]);
+  const history = useHistory();
+
+  function handleSelectMine(doodle) {
+    setCurrentDoodle(doodle)
+    history.push(`save`);
+  }
+
+
   useEffect(() => {
     console.log("fetching");
     const fetchData = async () => {
@@ -33,7 +42,7 @@ function MyDoodles({ handleSelect }) {
   return (
     <>
       <h1>My Doodles</h1>
-      <DoodleList doodles={doodles} handleSelect={handleSelect} />
+      <DoodleList doodles={doodles} handleSelect={handleSelectMine} />
     </>
   );
 }

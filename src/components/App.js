@@ -21,12 +21,6 @@ function App() {
   const [selectedDoodle, setSelectedDoodle] = useState(null);
 
   const handleSave = () => {
-    //update if has an id, create if doesn't - first update what currentDoodle is
-    //2 cases: save a new doodle from canvas
-    //save or update from details
-    //what to do with old one?
-    //completely separate details from a SavePreview/edit component with editable title - a lot of work.
-
     if (currentDoodle.id) {
       console.log(`updating ${currentDoodle.title}, id ${currentDoodle.id}`);
       const propertiesToUpdate = {
@@ -62,12 +56,6 @@ function App() {
     }
   };
 
-  function handleSelect(selectedDoodle) {
-    console.log(`navigating to ${selectedDoodle.id} details`);
-    setSelectedDoodle(selectedDoodle);
-    // history.push("/details");
-  }
-
   return (
     <>
       <CssBaseline />
@@ -97,10 +85,10 @@ function App() {
             />
           </Route>
           <Route exact path="/mydoodles">
-            <MyDoodles handleSelect={handleSelect} fakeDb={fakeDb} />
+            <MyDoodles setCurrentDoodle={setCurrentDoodle} fakeDb={fakeDb} />
           </Route>
           <Route exact path="/browse">
-            <OthersDoodles handleSelect={handleSelect} />
+            <OthersDoodles setSelectedDoodle={setSelectedDoodle} />
           </Route>
         </Switch>
       </Router>

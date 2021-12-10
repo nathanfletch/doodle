@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import DoodleList from "./DoodleList";
 import firestore from "../firebase";
+import { useHistory } from "react-router-dom";
 
 // import PropTypes from 'prop-types'
 
-function OthersDoodles({ handleSelect }) {
+function OthersDoodles({ setSelectedDoodle }) {
   const [doodles, setDoodles] = useState([]);
+  const history = useHistory();
+
   useEffect(() => {
     console.log("fetching");
     const fetchData = async () => {
@@ -33,10 +36,14 @@ function OthersDoodles({ handleSelect }) {
     fetchData();
   }, []);
 
+  function handleSelectOthers(doodle) {
+    setSelectedDoodle(doodle)
+    history.push(`details/${doodle.id}`);
+  }
   return (
     <>
       <h1>Others' Doodles</h1>
-      <DoodleList doodles={doodles} handleSelect={handleSelect} />
+      <DoodleList doodles={doodles} handleSelect={handleSelectOthers} />
     </>
   );
 }

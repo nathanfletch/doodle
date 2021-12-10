@@ -11,6 +11,9 @@ function DoodleDetails({ selectedDoodle }) {
   const [displayDoodle, setDisplayDoodle] = useState(selectedDoodle || null);
   let { id } = useParams();
 
+  // useEffect(() => {
+  //   console.log(displayDoodle)
+  // })
   useEffect(() => {
     if (selectedDoodle) return;
 
@@ -41,7 +44,7 @@ function DoodleDetails({ selectedDoodle }) {
     fetchData();
   }, [id, selectedDoodle]);
 
-  return (
+  return displayDoodle ? (
     <>
       <h1>{displayDoodle.title}</h1>
       <Box sx={{ width: "500px", margin: "auto" }}>
@@ -61,6 +64,8 @@ function DoodleDetails({ selectedDoodle }) {
         </Button> */}
       <CommentSection comments={displayDoodle.comments} />
     </>
+  ) : (
+    <div>Loading...</div>
   );
 }
 
