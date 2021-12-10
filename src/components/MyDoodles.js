@@ -3,7 +3,7 @@ import DoodleList from "./DoodleList";
 import firestore from "../firebase";
 // import PropTypes from 'prop-types'
 
-function MyDoodles() {
+function MyDoodles({ handleSelect }) {
   const [doodles, setDoodles] = useState([]);
   useEffect(() => {
     console.log("fetching");
@@ -16,17 +16,12 @@ function MyDoodles() {
           .then((querySnapshot) => {
             console.log(querySnapshot);
             querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
               setDoodles((prevDoodles) => [...prevDoodles, doc.data()]);
-              // return doc.data();
             });
           })
           .catch((error) => {
             console.log("Error getting documents: ", error);
           });
-
-        // setCurrentPost(data);
-        // setLoading(false);
       } catch (err) {
         console.error(err);
       }
@@ -38,7 +33,7 @@ function MyDoodles() {
   return (
     <>
       <h1>My Doodles</h1>
-      <DoodleList doodles={doodles} />
+      <DoodleList doodles={doodles} handleSelect={handleSelect} />
     </>
   );
 }

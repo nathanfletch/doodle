@@ -1,14 +1,20 @@
+import React, { useState } from "react";
 import DoodlePage from "./DoodlePage";
 import AccountPage from "./AccountPage";
 import DoodleDetails from "./DoodleDetails";
 import MyDoodles from "./MyDoodles";
 import OthersDoodles from "./OthersDoodles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+ 
+} from "react-router-dom";
 import { useLocalStorageState } from "../custom-hooks";
-import React from "react";
 import { sampleComments } from "../sample-comments";
 import firestore from "../firebase";
+// import { useHistory } from "react-router-dom";
 
 function App() {
   const [currentDoodle, setCurrentDoodle] = useLocalStorageState(
@@ -16,6 +22,8 @@ function App() {
     ""
   );
   const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
+  const [selectedDoodle, setSelectedDoodle] = useState(null);
+
   const handleSave = () => {
     const newDoc = firestore.collection("doodles").doc();
     const doodleInfo = {
@@ -27,9 +35,9 @@ function App() {
       // aspectRatio,
       comments: sampleComments,
       // emojis: [
-      //   time: {
-      //     user,
-      //     emoji,
+      //   {
+      //     user: "Jones3",
+      //     emoji: ":smile:"
       //   }
       // ]
     };
@@ -39,6 +47,11 @@ function App() {
 
     console.log(newDoc);
   };
+  function handleSelect(selectedDoodle) {
+    console.log(`navigating to ${selectedDoodle.id} details`);
+    setSelectedDoodle(selectedDoodle);
+    // history.push("/details");
+  }
 
   return (
     <>
@@ -55,14 +68,17 @@ function App() {
           <Route exact path="/account">
             <AccountPage />
           </Route>
-          <Route exact path="/details">
-            <DoodleDetails currentDoodle={currentDoodle} />
+          <Route exact path="/details/:id">
+            <DoodleDetails
+              currentDoodle={currentDoodle}
+              selectedDoodle={selectedDoodle}
+            />
           </Route>
           <Route exact path="/mydoodles">
-            <MyDoodles fakeDb={fakeDb} />
+            <MyDoodles handleSelect={handleSelect} fakeDb={fakeDb} />
           </Route>
           <Route exact path="/browse">
-            <OthersDoodles fakeDb={fakeDb} />
+            <OthersDoodles handleSelect={handleSelect} />
           </Route>
         </Switch>
       </Router>
