@@ -9,6 +9,7 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
   const [titleInput, setTitleInput] = useState(
     currentDoodle.title || "Name Your Doodle Here"
   );
+
   return (
     <>
       <form
@@ -22,7 +23,7 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
           <input
             onChange={(e) => setTitleInput(e.target.value)}
             onClick={() => {
-              if (titleInput === "Name Your Doodle Here") setTitleInput("");
+              if (titleInput === "Your Doodle") setTitleInput("");
             }}
             onBlur={() =>
               setCurrentDoodle({ ...currentDoodle, title: titleInput })
@@ -70,7 +71,7 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
           Continue Doodling
         </Button>
       </Link>
-      <CommentSection />
+      <CommentSection comments={currentDoodle.comments} />{" "}
     </>
   );
 }

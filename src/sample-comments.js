@@ -4,18 +4,7 @@ export const sampleComments = [
     username: "jones",
     body: "Looks great!",
   },
-  {
-    time: "December 3, 2021 9:31",
-    username: "jones2",
-    body: "Looks great!",
-  },
-  {
-    time: "December 3, 2021 9:32",
-    username: "jones3",
-    body: "Looks great!",
-  },
 ];
-
 
 /* 
         /* <Image
@@ -23,7 +12,7 @@ export const sampleComments = [
           aspectRatio={this.height / 500}
           src={currentDoodle}
         /> */
-      /* <Emojis />}
+/* <Emojis />}
     </>
   );
 } */

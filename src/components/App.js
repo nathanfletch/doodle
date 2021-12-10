@@ -27,30 +27,41 @@ function App() {
     //what to do with old one?
     //completely separate details from a SavePreview/edit component with editable title - a lot of work.
 
-    // if()
-    const newDoc = firestore.collection("doodles").doc();
-    const doodleInfo = {
-      title: "MyDoodle",
-      ...currentDoodle,
-      user: "Jones4",
-      // dataUrl: currentDoodle,
-      time: Date.now(),
-      id: newDoc.id,
-      // aspectRatio,
-      comments: sampleComments,
-      // emojis: [
-      //   {
-      //     user: "Jones3",
-      //     emoji: ":smile:"
-      //   }
-      // ]
-    };
-    setFakeDb((prevDb) => [...prevDb, doodleInfo]);
-
-    newDoc.set(doodleInfo);
-
-    console.log(newDoc);
+    if (currentDoodle.id) {
+      console.log(`updating ${currentDoodle.title}, id ${currentDoodle.id}`);
+      const propertiesToUpdate = {
+        dataUrl: currentDoodle.dataUrl,
+        title: currentDoodle.title,
+      };
+      firestore
+        .collection("doodles")
+        .doc(currentDoodle.id)
+        .update(propertiesToUpdate);
+    } else {
+      const newDoc = firestore.collection("doodles").doc();
+      const doodleInfo = {
+        title: "MyDoodle",
+        ...currentDoodle,
+        user: "Jones2",
+        // dataUrl: currentDoodle,
+        time: Date.now(),
+        id: newDoc.id,
+        // aspectRatio,
+        comments: sampleComments,
+        // emojis: [
+        //   {
+        //     user: "Jones3",
+        //     emoji: ":smile:"
+        //   }
+        // ]
+      };
+      newDoc.set(doodleInfo);
+      setCurrentDoodle(doodleInfo);
+      //eventually stop doing this once they make an account - on account creation, delete key from local storage and add the username to doodles in the db
+      setFakeDb((prevDb) => [...prevDb, doodleInfo]);
+    }
   };
+
   function handleSelect(selectedDoodle) {
     console.log(`navigating to ${selectedDoodle.id} details`);
     setSelectedDoodle(selectedDoodle);

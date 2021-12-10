@@ -10,12 +10,12 @@ import {
   Avatar,
   ListItem,
 } from "@mui/material";
-import { sampleComments } from "../sample-comments";
+// import { sampleComments } from "../sample-comments";
 
-export default function Comments() {
+export default function Comments({ comments = [] }) {
   // const [comments, setComments] = useState(sampleComments = [])
 
-  const listJsx = sampleComments.map((comment) => (
+  const listJsx = comments.map((comment) => (
     <Comment key={comment.time} comment={comment} />
   ));
   return (

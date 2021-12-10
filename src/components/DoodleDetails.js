@@ -59,7 +59,7 @@ function DoodleDetails({ selectedDoodle }) {
         >
           Save
         </Button> */}
-      <CommentSection />
+      <CommentSection comments={displayDoodle.comments} />
     </>
   );
 }
