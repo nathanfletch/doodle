@@ -1,12 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DoodleList from "./DoodleList";
+import firestore from "../firebase";
 // import PropTypes from 'prop-types'
 
-function MyDoodles({ fakeDb }) {
+function MyDoodles() {
+  const [doodles, setDoodles] = useState([]);
+  useEffect(() => {
+    console.log("fetching");
+    const fetchData = async () => {
+      try {
+        firestore
+          .collection("doodles")
+          .where("user", "==", "Jones4")
+          .get()
+          .then((querySnapshot) => {
+            console.log(querySnapshot);
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              setDoodles((prevDoodles) => [...prevDoodles, doc.data()]);
+              // return doc.data();
+            });
+          })
+          .catch((error) => {
+            console.log("Error getting documents: ", error);
+          });
+
+        // setCurrentPost(data);
+        // setLoading(false);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <h1>My Doodles</h1>
-      <DoodleList fakeDb={fakeDb} />
+      <DoodleList doodles={doodles} />
     </>
   );
 }

@@ -4,7 +4,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 // import ImageListItemBar from "@mui/material/ImageListItemBar";
 
-export default function DoodleList({ fakeDb }) {
+export default function DoodleList({ doodles }) {
   const cols = Math.floor((window.innerWidth - 100) / 248);
   console.log(cols);
   return (
@@ -16,7 +16,7 @@ export default function DoodleList({ fakeDb }) {
       }}
     >
       <ImageList variant="masonry" cols={3} gap={1}>
-        {fakeDb.map((item) => {
+        {doodles.map((item) => {
           console.log(item.dataUrl);
           return (
             <ImageListItem key={item.time}>

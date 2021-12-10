@@ -17,7 +17,7 @@ function App() {
   );
   const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
   const handleSave = () => {
-    const newDoc = firestore.collection("doodle").doc();
+    const newDoc = firestore.collection("doodles").doc();
     const doodleInfo = {
       user: "Jones4",
       title: "MyDoodle",

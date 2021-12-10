@@ -50,15 +50,7 @@ export default function SideBar({
         >
           Save
         </Button>
-        <Link style={{ textDecoration: "none" }} to="/account">
-          <Button
-            sx={{ width: "120px", margin: "auto" }}
-            size="small"
-            variant="outlined"
-          >
-            Sign Up
-          </Button>
-        </Link>
+        
         <Link style={{ textDecoration: "none" }} to="/details">
           <Button
             sx={{ width: "120px", margin: "auto" }}
@@ -84,6 +76,15 @@ export default function SideBar({
             variant="outlined"
           >
             MyDoodles
+          </Button>
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="/account">
+          <Button
+            sx={{ width: "120px", margin: "auto" }}
+            size="small"
+            variant="outlined"
+          >
+            Sign Up
           </Button>
         </Link>
       </ul>
