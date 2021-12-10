@@ -1,49 +1,59 @@
-import React from "react"; //{useEffect}
+import React, { useEffect, useState } from "react"; //
 // import Image from "material-ui-image"; - need aspect ratio to use this! maybe I can create a doodle data object and get it from that
 import { Box } from "@mui/material";
 import CommentSection from "./CommentSection";
-// import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import firestore from "../firebase";
 
 // import PropTypes from 'prop-types'
 
 function DoodleDetails({ currentDoodle, selectedDoodle }) {
-  console.log("current: " + typeof currentDoodle);
-  console.log("current: " + typeof selectedDoodle);
-  // let { id } = useParams();
-  // useEffect(() => {
-  //   if(currentDoodle.id === selectedDoodle.id) return;
+  console.log(`has ${currentDoodle ? "current" : "no current"}`);
+  const [displayDoodle, setDisplayDoodle] = useState(
+    selectedDoodle || { dataUrl: currentDoodle, title: "Your New Doodle" }
+  );
+  useEffect(() => {
+    console.log(displayDoodle);
+  }, [displayDoodle]);
 
-  //   console.log("fetching");
+  let { id } = useParams();
+  useEffect(() => {
+    if (selectedDoodle) return;
 
-  //   const fetchData = async () => {
-  //     try {
-  //       firestore
-  //         .collection("doodles").doc(selectedDoodle.id)
-  //         .get()
-  //         .then((querySnapshot) => {
-  //           console.log(querySnapshot);
-  //           querySnapshot.forEach((doc) => {
-  //             setDoodles((prevDoodles) => [...prevDoodles, doc.data()]);
-  //           });
-  //         })
-  //         .catch((error) => {
-  //           console.log("Error getting documents: ", error);
-  //         });
+    console.log("fetching");
 
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
+    const fetchData = async () => {
+      try {
+        firestore
+          .collection("doodles")
+          .doc(id)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              console.log("Document data:", doc.data());
+              setDisplayDoodle(doc.data());
+            } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting documents: ", error);
+          });
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  //   fetchData();
-  // }, [])
+    fetchData();
+  }, [id, selectedDoodle]);
 
   return (
     <>
-      <h1>{selectedDoodle ? selectedDoodle.title : "Super Doodle"}</h1>
+      <h1>{displayDoodle.title}</h1>
       <Box sx={{ width: "500px", margin: "auto" }}>
         <img
-          src={selectedDoodle ? selectedDoodle.dataUrl : currentDoodle}
+          src={displayDoodle.dataUrl}
           alt="Doodle"
           style={{ width: "100%", height: "auto" }}
         />
