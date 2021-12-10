@@ -4,6 +4,7 @@ import AccountPage from "./AccountPage";
 import DoodleDetails from "./DoodleDetails";
 import MyDoodles from "./MyDoodles";
 import OthersDoodles from "./OthersDoodles";
+import SavePreview from "./SavePreview";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
   BrowserRouter as Router,
@@ -26,6 +27,11 @@ function App() {
 
   const handleSave = () => {
     //update if has an id, create if doesn't - first update what currentDoodle is
+    //2 cases: save a new doodle from canvas
+    //save or update from details
+    //what to do with old one?
+    //completely separate details from a SavePreview/edit component with editable title - a lot of work.
+    
     // if()
     const newDoc = firestore.collection("doodles").doc();
     const doodleInfo = {
@@ -75,6 +81,13 @@ function App() {
             <DoodleDetails
               currentDoodle={currentDoodle}
               selectedDoodle={selectedDoodle}
+            />
+          </Route>
+          <Route exact path="/save">
+            <SavePreview
+              currentDoodle={currentDoodle}
+              selectedDoodle={selectedDoodle}
+              handleSave={handleSave}
             />
           </Route>
           <Route exact path="/mydoodles">

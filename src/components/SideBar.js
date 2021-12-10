@@ -42,22 +42,13 @@ export default function SideBar({
         >
           Clear
         </Button>
-        <Button
-          sx={{ width: "120px", margin: "auto" }}
-          size="small"
-          variant="outlined"
-          onClick={handleSave}
-        >
-          Save
-        </Button>
-
-        <Link style={{ textDecoration: "none" }} to="/details/new">
+        <Link style={{ textDecoration: "none" }} to="/save">
           <Button
             sx={{ width: "120px", margin: "auto" }}
             size="small"
             variant="outlined"
           >
-            Details
+            Save
           </Button>
         </Link>
         <Link style={{ textDecoration: "none" }} to="/browse">
