@@ -37,7 +37,9 @@ export default function DoodleCanvas(props) {
     setCoords({ x: null, y: null });
     //add a debounce here
     const dataUrl = canvasRef.current.toDataURL("image/png");
-    props.setCurrentDoodle({ dataUrl });
+    props.setCurrentDoodle((prevDoodle) => {
+      return { ...prevDoodle, dataUrl };
+    });
     setLocalHue(hue);
   };
 

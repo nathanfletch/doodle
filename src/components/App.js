@@ -6,12 +6,7 @@ import MyDoodles from "./MyDoodles";
 import OthersDoodles from "./OthersDoodles";
 import SavePreview from "./SavePreview";
 import CssBaseline from "@mui/material/CssBaseline";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
- 
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useLocalStorageState } from "../custom-hooks";
 import { sampleComments } from "../sample-comments";
 import firestore from "../firebase";
@@ -20,7 +15,7 @@ import firestore from "../firebase";
 function App() {
   const [currentDoodle, setCurrentDoodle] = useLocalStorageState(
     "currentDoodle",
-    {dataUrl: ""}
+    {}
   );
   const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
   const [selectedDoodle, setSelectedDoodle] = useState(null);
@@ -31,7 +26,7 @@ function App() {
     //save or update from details
     //what to do with old one?
     //completely separate details from a SavePreview/edit component with editable title - a lot of work.
-    
+
     // if()
     const newDoc = firestore.collection("doodles").doc();
     const doodleInfo = {
@@ -86,7 +81,7 @@ function App() {
           <Route exact path="/save">
             <SavePreview
               currentDoodle={currentDoodle}
-              selectedDoodle={selectedDoodle}
+              setCurrentDoodle={setCurrentDoodle}
               handleSave={handleSave}
             />
           </Route>
