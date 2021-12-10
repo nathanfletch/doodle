@@ -18,7 +18,7 @@ function DoodleDetails({ currentDoodle, selectedDoodle }) {
 
   let { id } = useParams();
   useEffect(() => {
-    if (selectedDoodle) return;
+    if (selectedDoodle || id === "new") return;
 
     console.log("fetching");
 

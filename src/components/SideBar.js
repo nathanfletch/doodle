@@ -50,8 +50,8 @@ export default function SideBar({
         >
           Save
         </Button>
-        
-        <Link style={{ textDecoration: "none" }} to="/details">
+
+        <Link style={{ textDecoration: "none" }} to="/details/new">
           <Button
             sx={{ width: "120px", margin: "auto" }}
             size="small"
