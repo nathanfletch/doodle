@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useLocalStorageState } from "../custom-hooks";
 import React from "react";
 import { sampleComments } from "../sample-comments";
+import firestore from "../firebase";
 
 function App() {
   const [currentDoodle, setCurrentDoodle] = useLocalStorageState(
@@ -31,6 +32,8 @@ function App() {
       // ]
     };
     setFakeDb((prevDb) => [...prevDb, doodleInfo]);
+    firestore.collection('doodle').add(doodleInfo);
+    console.log(firestore);
   };
 
   return (
