@@ -15,22 +15,25 @@ import "firebase/compat/auth";
 
 const theme = createTheme();
 
-export default function SignIn(props) {
+export default function SignIn({ setUser, setMode }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const username = data.get("username") + "@fake.com";
+    const username = data.get("username");
+    const email = username + "@placeholder.com";
     const password = data.get("password");
     console.log(username, password);
-    // eslint-disable-next-line no-console
+
     firebase
       .auth()
-      .createUserWithEmailAndPassword(username, password)
-      .then(function () {
-        console.log("successfully signed up!");
+      .signInWithEmailAndPassword(email, password)
+      .then(function (user) {
+        console.log("Successfully signed in!");
+        console.log(user);
+        setUser(user);
       })
       .catch(function (error) {
-        console.log("nope", error.message);
+        console.log(error.message);
       });
   };
 
@@ -103,7 +106,7 @@ export default function SignIn(props) {
                 </Link>
               </Grid> */}
               <Grid item>
-                <Link onClick={() => props.setMode("signup")} variant="body2">
+                <Link onClick={() => setMode("signup")} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

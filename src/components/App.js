@@ -19,6 +19,7 @@ function App() {
   );
   const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
   const [selectedDoodle, setSelectedDoodle] = useState(null);
+  const [user, setUser] = useState(null);
 
   const handleUpdate = (doodle) => {
     console.log(`updating ${doodle.title}, id ${doodle.id}`);
@@ -73,7 +74,7 @@ function App() {
             />
           </Route>
           <Route exact path="/account">
-            <AccountPage />
+            <AccountPage user={user} setUser={setUser} />
           </Route>
           <Route exact path="/details/:id">
             <DoodleDetails

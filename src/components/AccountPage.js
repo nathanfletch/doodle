@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import { Link as MuiLink } from "@mui/material";
+import { Link as MuiLink, Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
-// import { Link } from "react-router-dom";
+import { firebase } from "../firebase";
+import "firebase/compat/auth";
+import { Link } from "react-router-dom";
 
 // import PropTypes from 'prop-types'
 function Copyright(props) {
@@ -12,7 +14,7 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
+      sx={{ mt: 5 }}
     >
       {"Copyright © "}
       <MuiLink
@@ -28,16 +30,42 @@ function Copyright(props) {
   );
 }
 
-function AccountPage(props) {
-  const [mode, setMode] = useState("signup");
-  return (
+//replace this with signed in test
+function AccountPage({ user, setUser }) {
+  const [mode, setMode] = useState("signin");
+
+  function logOut() {
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        console.log("Successfully signed out!");
+        setUser(null);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+  }
+
+  return user ? (
+    <div>
+      You are signed in!
+      <Link to={"/"}>
+        <Button>Continue doodling</Button>
+      </Link>
+      <Link to={"/save"}>
+        <Button>Back to save preview</Button>
+      </Link>
+      <Button onClick={logOut}>Logout</Button>
+    </div>
+  ) : (
     <>
       {mode === "signup" ? (
-        <SignUp setMode={setMode} />
+        <SignUp setMode={setMode} setUser={setUser} />
       ) : (
-        <SignIn setMode={setMode} />
+        <SignIn setMode={setMode} setUser={setUser} />
       )}
-      <Copyright sx={{ mt: 5 }} />
+      <Copyright />
     </>
   );
 }

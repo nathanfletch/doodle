@@ -14,8 +14,13 @@ import { firebase } from "../firebase";
 import "firebase/compat/auth";
 
 const theme = createTheme();
+//login
+//test var user = firebase.auth().currentUser; - in app and pass props or in local component?
+//components that need user login - emoji, comments, save,
+//use as a popup?
+//add id/displayName to the doodle, add to firestore query
 
-export default function SignUp(props) {
+export default function SignUp({ setUser, setMode }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -29,18 +34,17 @@ export default function SignUp(props) {
       .createUserWithEmailAndPassword(email, password)
       .then(function (userCredential) {
         var user = userCredential.user;
-        console.log("user: ", user);
         user
           .updateProfile({
             displayName: username,
           })
           .then(() => {
+            console.log("user: ", user);
             console.log("updated display name");
+            setUser(user);
           })
           .catch((error) => {
             console.log("couldn't update display name: " + error.message);
-            // An error occurred
-            // ...
           });
       })
       .catch(function (error) {
@@ -108,7 +112,7 @@ export default function SignUp(props) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link onClick={() => props.setMode("signin")} variant="body2">
+                <Link onClick={() => setMode("signin")} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
