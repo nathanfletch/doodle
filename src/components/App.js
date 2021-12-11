@@ -9,7 +9,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useLocalStorageState } from "../custom-hooks";
 import { sampleComments } from "../sample-comments";
-import firestore from "../firebase";
+import { firestore } from "../firebase";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -94,10 +94,10 @@ function App() {
             <MyDoodles setCurrentDoodle={setCurrentDoodle} fakeDb={fakeDb} />
           </Route>
           <Route exact path="/browse">
-            <OthersDoodles  setSelectedDoodle={setSelectedDoodle} />
+            <OthersDoodles setSelectedDoodle={setSelectedDoodle} />
           </Route>
         </Switch>
-      </Router> 
+      </Router>
     </>
   );
 }

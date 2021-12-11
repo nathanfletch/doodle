@@ -3,6 +3,7 @@ import React, { useState } from "react"; //, { useEffect, useState }
 import { Box, Button } from "@mui/material";
 import CommentSection from "./CommentSection";
 import { Link } from "react-router-dom";
+
 // import PropTypes from 'prop-types'
 
 function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
@@ -10,7 +11,16 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
     currentDoodle.title || "Name Your Doodle Here"
   );
 
-  // function handle 
+  function handleCommentSubmit(commentBody) {
+    const comment = { time: Date.now(), username: "jones5", body: commentBody };
+    const commentedDoodle = {
+      ...currentDoodle,
+      comments: [...currentDoodle.comments, comment],
+    };
+    setCurrentDoodle(commentedDoodle);
+    handleSave(commentedDoodle);
+  }
+
   return (
     <>
       <form
@@ -71,7 +81,12 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
           Continue Doodling
         </Button>
       </Link>
-      <CommentSection comments={currentDoodle.comments} />{" "}
+      {currentDoodle.id ? (
+        <CommentSection
+          handleCommentSubmit={handleCommentSubmit}
+          comments={currentDoodle.comments}
+        />
+      ) : null}
     </>
   );
 }

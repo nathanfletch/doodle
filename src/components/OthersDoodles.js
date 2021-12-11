@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DoodleList from "./DoodleList";
-import firestore from "../firebase";
+import {firestore} from "../firebase";
 import { useHistory } from "react-router-dom";
 
 // import PropTypes from 'prop-types'

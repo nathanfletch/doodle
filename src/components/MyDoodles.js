@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DoodleList from "./DoodleList";
-import firestore from "../firebase";
+import { firestore } from "../firebase";
 // import PropTypes from 'prop-types'
 import { useHistory } from "react-router-dom";
 
@@ -9,10 +9,9 @@ function MyDoodles({ setCurrentDoodle }) {
   const history = useHistory();
 
   function handleSelectMine(doodle) {
-    setCurrentDoodle(doodle)
+    setCurrentDoodle(doodle);
     history.push(`save`);
   }
-
 
   useEffect(() => {
     console.log("fetching");
