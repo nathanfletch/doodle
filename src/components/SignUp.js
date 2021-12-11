@@ -19,19 +19,32 @@ export default function SignUp(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const username = data.get("username") + "@fake.com";
+    const username = data.get("username");
+    const email = username + "@placeholder.com";
     const password = data.get("password");
-    console.log(username, password);
     // eslint-disable-next-line no-console
+    console.log(email, username, password);
     firebase
       .auth()
-      .createUserWithEmailAndPassword(username, password)
+      .createUserWithEmailAndPassword(email, password)
       .then(function (userCredential) {
         var user = userCredential.user;
         console.log("user: ", user);
+        user
+          .updateProfile({
+            displayName: username,
+          })
+          .then(() => {
+            console.log("updated display name");
+          })
+          .catch((error) => {
+            console.log("couldn't update display name: " + error.message);
+            // An error occurred
+            // ...
+          });
       })
       .catch(function (error) {
-        console.log("nope", error.message);
+        console.log("couldn't create user", error.message);
       });
   };
 
