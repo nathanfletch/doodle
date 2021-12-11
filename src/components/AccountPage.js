@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-// import { Link as MuiLink } from "@mui/material";
+import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 // import PropTypes from 'prop-types'
 function Copyright(props) {
@@ -15,13 +15,13 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link
+      <MuiLink
         color="inherit"
         href="https://github.com/nathanfletch"
         target="blank"
       >
         Nathan Fletcher
-      </Link>{" "}
+      </MuiLink>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>

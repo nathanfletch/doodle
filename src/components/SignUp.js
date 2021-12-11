@@ -10,6 +10,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { firebase } from "../firebase";
+import "firebase/compat/auth";
 
 const theme = createTheme();
 
@@ -17,11 +19,20 @@ export default function SignUp(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const username = data.get("username") + "@fake.com";
+    const password = data.get("password");
+    console.log(username, password);
     // eslint-disable-next-line no-console
-    console.log({
-      username: data.get("username"),
-      password: data.get("password"),
-    });
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(username, password)
+      .then(function (userCredential) {
+        var user = userCredential.user;
+        console.log("user: ", user);
+      })
+      .catch(function (error) {
+        console.log("nope", error.message);
+      });
   };
 
   return (
@@ -58,7 +69,7 @@ export default function SignUp(props) {
                   label="Username"
                   name="username"
                   autoComplete="username"
-                  autofocus
+                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>

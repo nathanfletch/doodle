@@ -10,6 +10,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { firebase } from "../firebase";
+import "firebase/compat/auth";
 
 const theme = createTheme();
 
@@ -17,11 +19,19 @@ export default function SignIn(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const username = data.get("username") + "@fake.com";
+    const password = data.get("password");
+    console.log(username, password);
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("username"),
-      password: data.get("password"),
-    });
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(username, password)
+      .then(function () {
+        console.log("successfully signed up!");
+      })
+      .catch(function (error) {
+        console.log("nope", error.message);
+      });
   };
 
   return (
