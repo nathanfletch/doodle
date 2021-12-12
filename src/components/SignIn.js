@@ -12,10 +12,13 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { firebase } from "../firebase";
 import "firebase/compat/auth";
+import { useHistory } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignIn({ setUser, setMode }) {
+  const history = useHistory();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -27,10 +30,18 @@ export default function SignIn({ setUser, setMode }) {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(function (user) {
+      .then(function (signInObject) {
         console.log("Successfully signed in!");
-        console.log(user);
-        setUser(user);
+        console.log(signInObject);
+        console.log("uid: ", signInObject.user.uid);
+        console.log("username: ", signInObject.user.displayName);
+        // setUser(user);
+        setUser({ username, uid: signInObject.user.uid });
+        history.push("/save");
+        //do i need the whole user object or can I just get the uid and displayName
+        //how do i stay signed in through refreshes when my app unmounts and remounts? local storage? or check if I'm still signed in? - firebase.auth().currentUser in a useEffect in App component?
+        //protect routes - later
+        //update properties everywhere: user, username, uid
       })
       .catch(function (error) {
         console.log(error.message);

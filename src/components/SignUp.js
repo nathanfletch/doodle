@@ -20,7 +20,7 @@ const theme = createTheme();
 //use as a popup?
 //add id/displayName to the doodle, add to firestore query
 
-export default function SignUp({ setUser, setMode }) {
+export default function SignUp({ setMode }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,9 +39,10 @@ export default function SignUp({ setUser, setMode }) {
             displayName: username,
           })
           .then(() => {
-            console.log("user: ", user);
+            console.log("user: ", user.displayName);
             console.log("updated display name");
-            setUser(user);
+            // setUser(user);
+            setMode("signin");
           })
           .catch((error) => {
             console.log("couldn't update display name: " + error.message);

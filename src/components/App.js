@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DoodlePage from "./DoodlePage";
 import AccountPage from "./AccountPage";
 import DoodleDetails from "./DoodleDetails";
@@ -21,6 +21,14 @@ function App() {
   const [selectedDoodle, setSelectedDoodle] = useState(null);
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    //
+    if (user) {
+      console.log(user.uid);
+      console.log(user.username);
+    } else console.log("no user");
+  }, [user]);
+
   const handleUpdate = (doodle) => {
     console.log(`updating ${doodle.title}, id ${doodle.id}`);
     firestore.collection("doodles").doc(doodle.id).update(doodle);
@@ -28,20 +36,13 @@ function App() {
   const handleSave = () => {
     if (currentDoodle.id) {
       handleUpdate(currentDoodle);
-      // const propertiesToUpdate = {
-      //   dataUrl: currentDoodle.dataUrl,
-      //   title: currentDoodle.title,
-      // };
-      // firestore
-      //   .collection("doodles")
-      //   .doc(currentDoodle.id)
-      //   .update(propertiesToUpdate);
     } else {
       const newDoc = firestore.collection("doodles").doc();
       const doodleInfo = {
         title: "MyDoodle",
         ...currentDoodle,
-        user: "Jones2",
+        username: user.username || "Anonymous User",
+        uid: user.uid || "Anonymous User Id",
         // dataUrl: currentDoodle,
         time: Date.now(),
         id: newDoc.id,
