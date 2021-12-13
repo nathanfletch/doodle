@@ -37,7 +37,7 @@ function MyDoodles({ setCurrentDoodle, user }) {
     };
 
     fetchData();
-  }, []);
+  }, [user.uid]);
 
   return (
     <>

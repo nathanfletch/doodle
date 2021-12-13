@@ -97,30 +97,8 @@ function App() {
             <Redirect to={"/account"} />
           ) : (
             <Switch>
-              <Route exact path={["/doodles/new", "/doodles/:id/edit"]}>
-                <SavePreview
-                  currentDoodle={currentDoodle}
-                  setCurrentDoodle={setCurrentDoodle}
-                  handleSave={handleSave}
-                  user={user}
-                />
-              </Route>
-              <Route exact path="/doodles/:id">
-                <DoodleDetails
-                  currentDoodle={currentDoodle}
-                  selectedDoodle={selectedDoodle}
-                  setSelectedDoodle={setSelectedDoodle}
-                  handleUpdate={handleUpdate}
-                  user={user}
-                />
-              </Route>
-
               <Route exact path="/doodles/users/:id">
-                <MyDoodles
-                  user={user}
-                  setCurrentDoodle={setCurrentDoodle}
-                  // fakeDb={fakeDb}
-                />
+                <MyDoodles user={user} setCurrentDoodle={setCurrentDoodle} />
               </Route>
               <Route exact path="/doodles">
                 <OthersDoodles
@@ -128,6 +106,26 @@ function App() {
                   setSelectedDoodle={setSelectedDoodle}
                 />
               </Route>
+              <Switch>
+                <Route exact path={["/doodles/new", "/doodles/:id/edit"]}>
+                  <SavePreview
+                    currentDoodle={currentDoodle}
+                    setCurrentDoodle={setCurrentDoodle}
+                    handleSave={handleSave}
+                    user={user}
+                  />
+                </Route>
+                <Route exact path="/doodles/:id">
+                  <DoodleDetails
+                    currentDoodle={currentDoodle}
+                    selectedDoodle={selectedDoodle}
+                    setSelectedDoodle={setSelectedDoodle}
+                    handleUpdate={handleUpdate}
+                    user={user}
+                  />
+                </Route>
+              </Switch>
+
               {/* <Route exact path="/doodles/:username"> - extend this to view another user's doodles?
                 <OthersDoodles
                   user={user}

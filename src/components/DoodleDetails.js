@@ -78,9 +78,9 @@ function DoodleDetails({
         handleCommentSubmit={handleCommentSubmit}
       />
     </>
-  ) : id === "new" ? null : (
+  ) : (
     <div>Loading...</div>
   );
 }
-
+//id === "new" ? null :
 export default DoodleDetails;
