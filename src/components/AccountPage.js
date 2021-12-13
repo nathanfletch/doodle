@@ -53,18 +53,17 @@ function AccountPage({ user, setUser }) {
       <Link to={"/"}>
         <Button>Continue doodling</Button>
       </Link>
-      <Link to={"/save"}>
-        <Button>Back to save preview</Button>
-      </Link>
       <Button onClick={logOut}>Logout</Button>
     </div>
   ) : (
     <>
-      {mode === "signup" ? (
-        <SignUp setMode={setMode} setUser={setUser} />
-      ) : (
-        <SignIn setMode={setMode} setUser={setUser} />
-      )}
+      {
+        /* use a nested route instead of this?*/ mode === "signup" ? (
+          <SignUp setMode={setMode} setUser={setUser} />
+        ) : (
+          <SignIn setMode={setMode} setUser={setUser} />
+        )
+      }
       <Copyright />
     </>
   );

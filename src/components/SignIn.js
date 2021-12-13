@@ -32,16 +32,8 @@ export default function SignIn({ setUser, setMode }) {
       .signInWithEmailAndPassword(email, password)
       .then(function (signInObject) {
         console.log("Successfully signed in!");
-        console.log(signInObject);
-        console.log("uid: ", signInObject.user.uid);
-        console.log("username: ", signInObject.user.displayName);
-        // setUser(user);
         setUser({ username, uid: signInObject.user.uid });
-        history.push("/save");
-        //do i need the whole user object or can I just get the uid and displayName
-        //how do i stay signed in through refreshes when my app unmounts and remounts? local storage? or check if I'm still signed in? - firebase.auth().currentUser in a useEffect in App component?
-        //protect routes - later
-        //update properties everywhere: user, username, uid
+        history.push("/");
       })
       .catch(function (error) {
         console.log(error.message);
@@ -98,10 +90,6 @@ export default function SignIn({ setUser, setMode }) {
                 />
               </Grid>
             </Grid>
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
             <Button
               type="submit"
               fullWidth
@@ -111,11 +99,6 @@ export default function SignIn({ setUser, setMode }) {
               Sign In
             </Button>
             <Grid container>
-              {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
               <Grid item>
                 <Link onClick={() => setMode("signup")} variant="body2">
                   {"Don't have an account? Sign Up"}

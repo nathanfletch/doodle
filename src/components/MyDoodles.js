@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import DoodleList from "./DoodleList";
 import { firestore } from "../firebase";
-// import PropTypes from 'prop-types'
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
-function MyDoodles({ setCurrentDoodle }) {
+function MyDoodles({ setCurrentDoodle, user }) {
   const [doodles, setDoodles] = useState([]);
   const history = useHistory();
+  const id = useParams();
+  console.log(id);
 
   function handleSelectMine(doodle) {
     setCurrentDoodle(doodle);
-    history.push(`save`);
+    history.push(`/doodles/${doodle.id}/edit`);
   }
 
   useEffect(() => {
@@ -19,7 +20,7 @@ function MyDoodles({ setCurrentDoodle }) {
       try {
         firestore
           .collection("doodles")
-          .where("user", "==", "Jones4")
+          .where("uid", "==", user.uid)
           .get()
           .then((querySnapshot) => {
             console.log(querySnapshot);
@@ -45,15 +46,5 @@ function MyDoodles({ setCurrentDoodle }) {
     </>
   );
 }
-/* todos:
-add button links to sidebar - details, view my doodles, signup, others' doodles
-emoji picker
-save doodles to a file to simulate db
-  save button click handler
-  
-*/
-// MyDoodles.propTypes = {
-
-// }
 
 export default MyDoodles;

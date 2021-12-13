@@ -10,6 +10,7 @@ export default function SideBar({
   handleClear,
   tools,
   handleSave,
+  user,
 }) {
   return (
     <div className="sidebar">
@@ -42,42 +43,49 @@ export default function SideBar({
         >
           Clear
         </Button>
-        <Link style={{ textDecoration: "none" }} to="/save">
-          <Button
-            sx={{ width: "120px", margin: "auto" }}
-            size="small"
-            variant="outlined"
-          >
-            Save
-          </Button>
-        </Link>
-        <Link style={{ textDecoration: "none" }} to="/browse">
-          <Button
-            sx={{ width: "120px", margin: "auto" }}
-            size="small"
-            variant="outlined"
-          >
-            Browse
-          </Button>
-        </Link>
-        <Link style={{ textDecoration: "none" }} to="/mydoodles">
-          <Button
-            sx={{ width: "120px", margin: "auto" }}
-            size="small"
-            variant="outlined"
-          >
-            MyDoodles
-          </Button>
-        </Link>
         <Link style={{ textDecoration: "none" }} to="/account">
           <Button
             sx={{ width: "120px", margin: "auto" }}
             size="small"
             variant="outlined"
           >
-            Sign Up
+            Sign In
           </Button>
         </Link>
+        {user ? (
+          <>
+            <Link style={{ textDecoration: "none" }} to="/doodles/new">
+              <Button
+                sx={{ width: "120px", margin: "auto" }}
+                size="small"
+                variant="outlined"
+              >
+                Save
+              </Button>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to="/doodles">
+              <Button
+                sx={{ width: "120px", margin: "auto" }}
+                size="small"
+                variant="outlined"
+              >
+                Doodles
+              </Button>
+            </Link>
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/doodles/users/${user.username}`}
+            >
+              <Button
+                sx={{ width: "120px", margin: "auto" }}
+                size="small"
+                variant="outlined"
+              >
+                My Doodles
+              </Button>
+            </Link>
+          </>
+        ) : null}
       </ul>
     </div>
   );

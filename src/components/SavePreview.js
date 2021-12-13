@@ -4,15 +4,18 @@ import { Box, Button, ButtonGroup } from "@mui/material";
 import CommentSection from "./CommentSection";
 import { Link } from "react-router-dom";
 
-// import PropTypes from 'prop-types'
-
-function SavePreview({ currentDoodle, setCurrentDoodle, handleSave }) {
+function SavePreview({ currentDoodle, setCurrentDoodle, handleSave, user }) {
   const [titleInput, setTitleInput] = useState(
-    currentDoodle.title || "Name Your Doodle Here"
+    currentDoodle.title || `${user.username}'s Doodle`
   );
 
   function handleCommentSubmit(commentBody) {
-    const comment = { time: Date.now(), username: "jones5", body: commentBody };
+    const comment = {
+      time: Date.now(),
+      uid: user.uid,
+      username: user.username,
+      body: commentBody,
+    };
     const commentedDoodle = {
       ...currentDoodle,
       comments: [...currentDoodle.comments, comment],

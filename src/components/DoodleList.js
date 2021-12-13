@@ -5,13 +5,11 @@ import ImageListItem from "@mui/material/ImageListItem";
 // import ImageListItemBar from "@mui/material/ImageListItemBar";
 
 export default function DoodleList({ doodles, handleSelect }) {
-  // const cols = Math.floor((window.innerWidth - 100) / 248);
 
   return (
     <Box
       sx={{
         width: window.innerWidth - 100,
-        // overflowY: "scroll",
         margin: "auto",
       }}
     >

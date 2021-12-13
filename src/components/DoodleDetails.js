@@ -5,22 +5,20 @@ import CommentSection from "./CommentSection";
 import { useParams } from "react-router-dom";
 import { firestore } from "../firebase";
 
-// import PropTypes from 'prop-types'
-
 function DoodleDetails({
   handleSave,
   selectedDoodle,
   setSelectedDoodle,
   handleUpdate,
+  user,
 }) {
   const [displayDoodle, setDisplayDoodle] = useState(selectedDoodle || null);
   let { id } = useParams();
 
-  // useEffect(() => {
-  //   console.log(displayDoodle)
-  // })
+  //will need the user to add to comments/emojis
+
   useEffect(() => {
-    if (selectedDoodle) return;
+    if (selectedDoodle || id === "new") return;
 
     console.log("fetching");
     const fetchData = async () => {
@@ -34,7 +32,6 @@ function DoodleDetails({
               console.log("Document data:", doc.data());
               setDisplayDoodle(doc.data());
             } else {
-              // doc.data() will be undefined in this case
               console.log("No such document!");
             }
           })
@@ -50,12 +47,17 @@ function DoodleDetails({
   }, [id, selectedDoodle]);
 
   function handleCommentSubmit(commentBody) {
-    const comment = { time: Date.now(), username: "jones5", body: commentBody };
+    const comment = {
+      time: Date.now(),
+      uid: user.uid,
+      username: user.username,
+      body: commentBody,
+    };
     const commentedDoodle = {
       ...displayDoodle,
       comments: [...displayDoodle.comments, comment],
     };
-    //this is bad:
+    //to be refactored to only have one source of truth:
     setSelectedDoodle(commentedDoodle);
     setDisplayDoodle(commentedDoodle);
     handleUpdate(commentedDoodle);
@@ -71,26 +73,14 @@ function DoodleDetails({
           style={{ width: "100%", height: "auto" }}
         />
       </Box>
-      {/* <Button
-          sx={{ width: "120px", margin: "auto" }}
-          size="small"
-          variant="outlined"
-          onClick={handleSave}
-        >
-          Save
-        </Button> */}
       <CommentSection
         comments={displayDoodle.comments}
         handleCommentSubmit={handleCommentSubmit}
       />
     </>
-  ) : (
+  ) : id === "new" ? null : (
     <div>Loading...</div>
   );
 }
-
-// DoodleDetail.propTypes = {
-
-// }
 
 export default DoodleDetails;

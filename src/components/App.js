@@ -6,10 +6,15 @@ import MyDoodles from "./MyDoodles";
 import OthersDoodles from "./OthersDoodles";
 import SavePreview from "./SavePreview";
 import CssBaseline from "@mui/material/CssBaseline";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { useLocalStorageState } from "../custom-hooks";
 import { sampleComments } from "../sample-comments";
-import { firestore } from "../firebase";
+import { firebase, firestore } from "../firebase";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -17,22 +22,32 @@ function App() {
     "currentDoodle",
     {}
   );
-  const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
+  // const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
   const [selectedDoodle, setSelectedDoodle] = useState(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    //
-    if (user) {
-      console.log(user.uid);
-      console.log(user.username);
-    } else console.log("no user");
-  }, [user]);
+    firebase.auth().onAuthStateChanged((userStatus) => {
+      if (userStatus) {
+        console.log("user data from firebase: ");
+        const fetchedUser = {
+          uid: userStatus.uid,
+          username: userStatus.displayName,
+        };
+        console.log(fetchedUser);
+        setUser(fetchedUser);
+      } else {
+        console.log("user isn't signed in on firebase");
+        setUser(null);
+      }
+    });
+  }, []);
 
   const handleUpdate = (doodle) => {
     console.log(`updating ${doodle.title}, id ${doodle.id}`);
     firestore.collection("doodles").doc(doodle.id).update(doodle);
   };
+
   const handleSave = () => {
     if (currentDoodle.id) {
       handleUpdate(currentDoodle);
@@ -58,7 +73,7 @@ function App() {
       newDoc.set(doodleInfo);
       setCurrentDoodle(doodleInfo);
       //eventually stop doing this once they make an account - on account creation, delete key from local storage and add the username to doodles in the db
-      setFakeDb((prevDb) => [...prevDb, doodleInfo]);
+      // setFakeDb((prevDb) => [...prevDb, doodleInfo]);
     }
   };
 
@@ -67,37 +82,60 @@ function App() {
       <CssBaseline />
       <Router>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={["/home", "/"]}>
             <DoodlePage
               currentDoodle={currentDoodle}
               setCurrentDoodle={setCurrentDoodle}
               handleSave={handleSave}
+              user={user}
             />
           </Route>
           <Route exact path="/account">
             <AccountPage user={user} setUser={setUser} />
           </Route>
-          <Route exact path="/details/:id">
-            <DoodleDetails
-              currentDoodle={currentDoodle}
-              selectedDoodle={selectedDoodle}
-              setSelectedDoodle={setSelectedDoodle}
-              handleUpdate={handleUpdate}
-            />
-          </Route>
-          <Route exact path="/save">
-            <SavePreview
-              currentDoodle={currentDoodle}
-              setCurrentDoodle={setCurrentDoodle}
-              handleSave={handleSave}
-            />
-          </Route>
-          <Route exact path="/mydoodles">
-            <MyDoodles setCurrentDoodle={setCurrentDoodle} fakeDb={fakeDb} />
-          </Route>
-          <Route exact path="/browse">
-            <OthersDoodles setSelectedDoodle={setSelectedDoodle} />
-          </Route>
+          {!user ? (
+            <Redirect to={"/account"} />
+          ) : (
+            <Switch>
+              <Route exact path={["/doodles/new", "/doodles/:id/edit"]}>
+                <SavePreview
+                  currentDoodle={currentDoodle}
+                  setCurrentDoodle={setCurrentDoodle}
+                  handleSave={handleSave}
+                  user={user}
+                />
+              </Route>
+              <Route exact path="/doodles/:id">
+                <DoodleDetails
+                  currentDoodle={currentDoodle}
+                  selectedDoodle={selectedDoodle}
+                  setSelectedDoodle={setSelectedDoodle}
+                  handleUpdate={handleUpdate}
+                  user={user}
+                />
+              </Route>
+
+              <Route exact path="/doodles/users/:id">
+                <MyDoodles
+                  user={user}
+                  setCurrentDoodle={setCurrentDoodle}
+                  // fakeDb={fakeDb}
+                />
+              </Route>
+              <Route exact path="/doodles">
+                <OthersDoodles
+                  user={user}
+                  setSelectedDoodle={setSelectedDoodle}
+                />
+              </Route>
+              {/* <Route exact path="/doodles/:username"> - extend this to view another user's doodles?
+                <OthersDoodles
+                  user={user}
+                  setSelectedDoodle={setSelectedDoodle}
+                />
+              </Route> */}
+            </Switch>
+          )}
         </Switch>
       </Router>
     </>

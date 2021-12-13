@@ -14,11 +14,6 @@ import { firebase } from "../firebase";
 import "firebase/compat/auth";
 
 const theme = createTheme();
-//login
-//test var user = firebase.auth().currentUser; - in app and pass props or in local component?
-//components that need user login - emoji, comments, save,
-//use as a popup?
-//add id/displayName to the doodle, add to firestore query
 
 export default function SignUp({ setMode }) {
   const handleSubmit = (event) => {
@@ -27,8 +22,7 @@ export default function SignUp({ setMode }) {
     const username = data.get("username");
     const email = username + "@placeholder.com";
     const password = data.get("password");
-    // eslint-disable-next-line no-console
-    console.log(email, username, password);
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -40,8 +34,6 @@ export default function SignUp({ setMode }) {
           })
           .then(() => {
             console.log("user: ", user.displayName);
-            console.log("updated display name");
-            // setUser(user);
             setMode("signin");
           })
           .catch((error) => {

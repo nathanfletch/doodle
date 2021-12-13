@@ -3,9 +3,7 @@ import DoodleList from "./DoodleList";
 import { firestore } from "../firebase";
 import { useHistory } from "react-router-dom";
 
-// import PropTypes from 'prop-types'
-
-function OthersDoodles({ setSelectedDoodle }) {
+function OthersDoodles({ setSelectedDoodle, user }) {
   const [doodles, setDoodles] = useState([]);
   const history = useHistory();
 
@@ -15,10 +13,9 @@ function OthersDoodles({ setSelectedDoodle }) {
       try {
         firestore
           .collection("doodles")
-          .where("user", "!=", "Jones4")
+          .where("uid", "!=", user.uid)
           .get()
           .then((querySnapshot) => {
-            console.log(querySnapshot);
             let dbDoodles = [];
             querySnapshot.forEach((doc) => {
               dbDoodles.push(doc.data());
@@ -34,11 +31,11 @@ function OthersDoodles({ setSelectedDoodle }) {
     };
 
     fetchData();
-  }, []);
+  }, [user.uid]);
 
   function handleSelectOthers(doodle) {
     setSelectedDoodle(doodle);
-    history.push(`details/${doodle.id}`);
+    history.push(`doodles/${doodle.id}`);
   }
   return (
     <>
@@ -47,9 +44,5 @@ function OthersDoodles({ setSelectedDoodle }) {
     </>
   );
 }
-
-// OthersDoodles.propTypes = {
-
-// }
 
 export default OthersDoodles;

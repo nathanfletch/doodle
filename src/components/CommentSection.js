@@ -41,7 +41,6 @@ export default function Comments({ handleCommentSubmit, comments = [] }) {
                   onChange={(e) => setCommentInput(e.target.value)}
                   label="Leave a comment:"
                   fullWidth
-                  // variant="standard"
                 />
               </form>
             }

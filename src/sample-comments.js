@@ -1,7 +1,8 @@
 export const sampleComments = [
   {
     time: "December 3, 2021 9:30",
-    username: "jones",
+    uid: "9NGRhk7TX5Ro9OeXyTSmCIYZnJv1",
+    username: "deb",
     body: "Looks great!",
   },
 ];
