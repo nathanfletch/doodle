@@ -63,12 +63,7 @@ function App() {
         id: newDoc.id,
         // aspectRatio,
         comments: sampleComments,
-        // emojis: [
-        //   {
-        //     user: "Jones3",
-        //     emoji: ":smile:"
-        //   }
-        // ]
+        emojis: [],
       };
       newDoc.set(doodleInfo);
       setCurrentDoodle(doodleInfo);
