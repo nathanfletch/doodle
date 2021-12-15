@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react"; //
+import { timeDifference } from "../utilities";
 // import { styled } from '@mui/system';
 import {
   ListItem,
@@ -10,21 +11,20 @@ import {
   Typography,
 } from "@mui/material";
 
-// const useStyles = styled(theme => ({
-//   root: {
-//     width: "100%",
-//     backgroundColor: theme.palette.background.paper
-//   },
-//   fonts: {
-//     fontWeight: "bold"
-//   },
-//   inline: {
-//     display: "inline"
-//   }
-// })); commentsection - comment
-
 const Comment = ({ comment, handleCommentDelete }) => {
-  console.log(comment);
+  const [displayTime, setDisplayTime] = useState(timeDifference(comment.time));
+  useEffect(() => {
+    const timeUpdateInterval = setInterval(() => {
+      console.log("setting time");
+      setDisplayTime(timeDifference(comment.time));
+    }, 5000);
+
+    return () => {
+      console.log("unmounting, clearing");
+      clearInterval(timeUpdateInterval);
+    };
+  }, [comment.time]);
+
   return (
     <React.Fragment key={comment.time}>
       <Paper key={comment.time} sx={{ margin: "10px" }}>
@@ -36,7 +36,7 @@ const Comment = ({ comment, handleCommentDelete }) => {
           </ListItemAvatar>
           <ListItemText
             primary={
-              <Typography>{`${comment.username} - ${comment.time}`}</Typography>
+              <Typography>{`${comment.username}  ${displayTime}`}</Typography>
             }
             secondary={
               <Typography component="span" variant="body2" color="textPrimary">

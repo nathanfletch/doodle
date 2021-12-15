@@ -1,6 +1,6 @@
 export const sampleComments = [
   {
-    time: "December 3, 2021 9:30",
+    time: 1639463237424,
     uid: "9NGRhk7TX5Ro9OeXyTSmCIYZnJv1",
     username: "deb",
     body: "Looks great!",
