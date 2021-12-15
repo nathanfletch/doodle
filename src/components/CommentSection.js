@@ -11,15 +11,23 @@ import {
   ListItem,
 } from "@mui/material";
 
-/*
-
-*/
-
-export default function Comments({ handleCommentSubmit, handleCommentDelete, comments = [] }) {
+export default function Comments({
+  handleCommentSubmit,
+  handleCommentDelete,
+  user,
+  doodleUid,
+  comments = [],
+}) {
   const [commentInput, setCommentInput] = useState("");
 
   const listJsx = comments.map((comment) => (
-    <Comment key={comment.time} handleCommentDelete={handleCommentDelete} comment={comment} />
+    <Comment
+      key={comment.time}
+      user={user}
+      handleCommentDelete={handleCommentDelete}
+      comment={comment}
+      doodleUid={doodleUid}
+    />
   ));
   return (
     <List>

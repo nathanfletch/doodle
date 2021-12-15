@@ -22,7 +22,6 @@ function App() {
     "currentDoodle",
     {}
   );
-  // const [fakeDb, setFakeDb] = useLocalStorageState("fakeDb", "");
   const [selectedDoodle, setSelectedDoodle] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -44,6 +43,7 @@ function App() {
   }, []);
 
   const handleUpdate = (doodle) => {
+    console.log(doodle);
     console.log(`updating ${doodle.title}, id ${doodle.id}`);
     firestore.collection("doodles").doc(doodle.id).update(doodle);
   };
@@ -56,9 +56,8 @@ function App() {
       const doodleInfo = {
         title: "MyDoodle",
         ...currentDoodle,
-        username: user.username || "Anonymous User",
-        uid: user.uid || "Anonymous User Id",
-        // dataUrl: currentDoodle,
+        username: user.username,
+        uid: user.uid,
         time: Date.now(),
         id: newDoc.id,
         // aspectRatio,
@@ -107,6 +106,7 @@ function App() {
                     currentDoodle={currentDoodle}
                     setCurrentDoodle={setCurrentDoodle}
                     handleSave={handleSave}
+                    handleUpdate={handleUpdate}
                     user={user}
                   />
                 </Route>

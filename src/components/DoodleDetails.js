@@ -4,8 +4,6 @@ import { Box } from "@mui/material";
 import CommentSection from "./CommentSection";
 import { useParams } from "react-router-dom";
 import { firestore } from "../firebase";
-// import Picker from "emoji-picker-react";
-// import AddReactionIcon from "@mui/icons-material/AddReaction";
 import EmojiBar from "./EmojiBar";
 
 function DoodleDetails({
@@ -17,8 +15,6 @@ function DoodleDetails({
 }) {
   const [displayDoodle, setDisplayDoodle] = useState(selectedDoodle || null);
   let { id } = useParams();
-  // const [chosenEmoji, setChosenEmoji] = useState(null);
-  // const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
     if (selectedDoodle || id === "new") return;
@@ -49,27 +45,14 @@ function DoodleDetails({
     fetchData();
   }, [id, selectedDoodle]);
 
-  // const onEmojiClick = (event, emojiObject) => {
-  //   console.log(emojiObject);
-  //   // setChosenEmoji(emojiObject);
-  //   console.log(displayDoodle);
-  //   const emojiDoodle = {
-  //     ...displayDoodle,
-  //     emojis: [...displayDoodle.emojis, emojiObject],
-  //   };
-  //   // //to be refactored to only have one source of truth:
-  //   // setSelectedDoodle(emojiDoodle);
-  //   setDisplayDoodle(emojiDoodle);
-  //   // handleUpdate(emojiDoodle);
-  // };
-
   function handleCommentSubmit(commentBody) {
     const comment = {
       time: Date.now(),
       uid: user.uid,
       username: user.username,
-      body: commentBody,
+      body: commentBody, //update
     };
+
     const commentedDoodle = {
       ...displayDoodle,
       comments: [...displayDoodle.comments, comment],
@@ -80,9 +63,21 @@ function DoodleDetails({
     handleUpdate(commentedDoodle);
   }
 
-  // function handleCommentDelete(time) {
-  //   //what do i need? index? use time as an id? - sure
-  // }
+  function handleCommentDelete(time) {
+    const commentIndex = displayDoodle.comments.findIndex(
+      (comment) => comment.time === time
+    );
+    const commentRemovedCommentsCopy = [...displayDoodle.comments];
+    commentRemovedCommentsCopy.splice(commentIndex, 1);
+    const commentRemovedDoodle = {
+      ...displayDoodle,
+      comments: commentRemovedCommentsCopy,
+    };
+
+    setSelectedDoodle(commentRemovedDoodle);
+    setDisplayDoodle(commentRemovedDoodle);
+    handleUpdate(commentRemovedDoodle);
+  }
 
   // const emojiPicker = ['fire', 'sparkles', '']
   // const emojiList = displayDoodle.emojis.length
@@ -103,12 +98,15 @@ function DoodleDetails({
       <EmojiBar user={user} />
       <CommentSection
         comments={displayDoodle.comments}
+        doodleUid={displayDoodle.uid}
         handleCommentSubmit={handleCommentSubmit}
+        handleCommentDelete={handleCommentDelete}
+        user={user}
       />
     </>
   ) : (
     <div>Loading...</div>
   );
 }
-//id === "new" ? null :
+
 export default DoodleDetails;

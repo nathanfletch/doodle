@@ -11,8 +11,9 @@ import {
   Typography,
 } from "@mui/material";
 
-const Comment = ({ comment, handleCommentDelete }) => {
+const Comment = ({ comment, handleCommentDelete, doodleUid, user }) => {
   const [displayTime, setDisplayTime] = useState(timeDifference(comment.time));
+
   useEffect(() => {
     const timeUpdateInterval = setInterval(() => {
       console.log("setting time");
@@ -44,7 +45,7 @@ const Comment = ({ comment, handleCommentDelete }) => {
               </Typography>
             }
           />
-          <ListItemButton
+          {user.uid === comment.uid || user.uid === doodleUid ? <ListItemButton
             onClick={() => handleCommentDelete(comment.time)}
             variant="outlined"
             sx={{
@@ -56,7 +57,7 @@ const Comment = ({ comment, handleCommentDelete }) => {
             align-items="center"
           >
             Delete
-          </ListItemButton>
+          </ListItemButton> : null}
         </ListItem>
       </Paper>
     </React.Fragment>

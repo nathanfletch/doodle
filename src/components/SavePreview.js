@@ -4,7 +4,13 @@ import { Box, Button, ButtonGroup } from "@mui/material";
 import CommentSection from "./CommentSection";
 import { Link } from "react-router-dom";
 
-function SavePreview({ currentDoodle, setCurrentDoodle, handleSave, user }) {
+function SavePreview({
+  currentDoodle,
+  setCurrentDoodle,
+  handleSave,
+  handleUpdate,
+  user,
+}) {
   const [titleInput, setTitleInput] = useState(
     currentDoodle.title || `${user.username}'s Doodle`
   );
@@ -22,6 +28,21 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave, user }) {
     };
     setCurrentDoodle(commentedDoodle);
     handleSave(commentedDoodle);
+  }
+  function handleCommentDelete(time) {
+    const commentIndex = currentDoodle.comments.findIndex(
+      (comment) => comment.time === time
+    );
+    console.log("index:", commentIndex);
+    const commentRemovedCommentsCopy = [...currentDoodle.comments];
+    commentRemovedCommentsCopy.splice(commentIndex, 1);
+    console.log(commentRemovedCommentsCopy);
+    const commentedRemovedDoodle = {
+      ...currentDoodle,
+      comments: commentRemovedCommentsCopy,
+    };
+    setCurrentDoodle(commentedRemovedDoodle);
+    handleUpdate(commentedRemovedDoodle);
   }
 
   return (
@@ -80,6 +101,9 @@ function SavePreview({ currentDoodle, setCurrentDoodle, handleSave, user }) {
         <CommentSection
           handleCommentSubmit={handleCommentSubmit}
           comments={currentDoodle.comments}
+          handleCommentDelete={handleCommentDelete}
+          user={user}
+          doodleUid={currentDoodle.uid}
         />
       ) : null}
     </>
