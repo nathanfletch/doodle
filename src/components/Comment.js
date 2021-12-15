@@ -21,9 +21,9 @@ import {
 //   inline: {
 //     display: "inline"
 //   }
-// }));
+// })); commentsection - comment
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, handleCommentDelete }) => {
   console.log(comment);
   return (
     <React.Fragment key={comment.time}>
@@ -45,6 +45,7 @@ const Comment = ({ comment }) => {
             }
           />
           <ListItemButton
+            onClick={() => handleCommentDelete(comment.time)}
             variant="outlined"
             sx={{
               padding: "auto",
@@ -54,7 +55,7 @@ const Comment = ({ comment }) => {
             }}
             align-items="center"
           >
-            Report
+            Delete
           </ListItemButton>
         </ListItem>
       </Paper>

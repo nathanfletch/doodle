@@ -10,13 +10,16 @@ import {
   Avatar,
   ListItem,
 } from "@mui/material";
-// import { sampleComments } from "../sample-comments";
 
-export default function Comments({ handleCommentSubmit, comments = [] }) {
+/*
+
+*/
+
+export default function Comments({ handleCommentSubmit, handleCommentDelete, comments = [] }) {
   const [commentInput, setCommentInput] = useState("");
 
   const listJsx = comments.map((comment) => (
-    <Comment key={comment.time} comment={comment} />
+    <Comment key={comment.time} handleCommentDelete={handleCommentDelete} comment={comment} />
   ));
   return (
     <List>
