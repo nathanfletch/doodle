@@ -85,7 +85,11 @@ function App() {
             />
           </Route>
           <Route exact path="/account">
-            <AccountPage user={user} setUser={setUser} />
+            <AccountPage
+              user={user}
+              setUser={setUser}
+              setCurrentDoodle={setCurrentDoodle}
+            />
           </Route>
           {!user ? (
             <Redirect to={"/account"} />
@@ -136,4 +140,3 @@ function App() {
 }
 
 export default App;
-//app -> my -> commentSection

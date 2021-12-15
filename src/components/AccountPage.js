@@ -31,7 +31,7 @@ function Copyright(props) {
 }
 
 //replace this with signed in test
-function AccountPage({ user, setUser }) {
+function AccountPage({ user, setUser, setCurrentDoodle }) {
   const [mode, setMode] = useState("signin");
 
   function logOut() {
@@ -41,6 +41,7 @@ function AccountPage({ user, setUser }) {
       .then(function () {
         console.log("Successfully signed out!");
         setUser(null);
+        setCurrentDoodle(null);
       })
       .catch(function (error) {
         console.log(error.message);
