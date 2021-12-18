@@ -3,16 +3,28 @@ import React, { useState } from "react";
 import { Chip } from "@mui/material";
 import AddReactionIcon from "@mui/icons-material/AddReaction";
 
-export default function EmojiBar({ user }) {
-  const [chosenEmojis, setChosenEmojis] = useState([]);
+export default function EmojiBar({ emojis, handleEmojiSave, user }) {
+  /*
+    add click outside of box handler
+    add username to object, 
+    add hover tooltip that displays the user and name of emoji
+    add selection click to existing chips - add or remove
+
+  */
+  const [chosenEmojis, setChosenEmojis] = useState(emojis);
   const [pickerVisible, setPickerVisible] = useState(false);
 
   const onEmojiClick = (event, emojiObject) => {
     let chosenEmojisCopy = [...chosenEmojis];
-    const emojiWithCounter = { ...emojiObject, counter: 1, uid: user.uid };
+    const newEmoji = {
+      ...emojiObject,
+      counter: 1,
+      usernames: [user.username],
+      uids: [user.uid],
+    };
 
-    const prevUserEmojiIndex = chosenEmojis.findIndex(
-      (emoji) => emoji.uid === user.uid
+    const prevUserEmojiIndex = chosenEmojis.findIndex((emoji) =>
+      emoji.uids.includes(user.uid)
     );
     //remove if present
     if (prevUserEmojiIndex >= 0) {
@@ -20,9 +32,23 @@ export default function EmojiBar({ user }) {
       if (chosenEmojis[prevUserEmojiIndex].counter === 1) {
         chosenEmojisCopy.splice(prevUserEmojiIndex, 1);
       } else {
+        // chosenEmojisCopy[prevUserEmojiIndex]
         const decrementedEmoji = {
           ...chosenEmojisCopy[prevUserEmojiIndex],
           counter: chosenEmojisCopy[prevUserEmojiIndex].counter - 1,
+          //remove username and uid from arrays
+          usernames: [...chosenEmojisCopy[prevUserEmojiIndex].usernames].splice(
+            chosenEmojisCopy[prevUserEmojiIndex].usernames.findIndex(
+              (username) => username === user.username
+            ),
+            1
+          ),
+          uids: [...chosenEmojisCopy[prevUserEmojiIndex].usernames].splice(
+            chosenEmojisCopy[prevUserEmojiIndex].uids.findIndex(
+              (uid) => uid === user.uid
+            ),
+            1
+          ),
         };
         chosenEmojisCopy[prevUserEmojiIndex] = decrementedEmoji;
       }
@@ -39,18 +65,20 @@ export default function EmojiBar({ user }) {
     // add
     //test if present in emoji list:
     if (
-      !chosenEmojisCopy.some((emoji) => emoji.unified === emojiObject.unified)
+      chosenEmojisCopy.some((emoji) => emoji.unified === emojiObject.unified)
     ) {
-      chosenEmojisCopy = [...chosenEmojisCopy, emojiWithCounter];
-    } else {
       const index = chosenEmojis.findIndex(
         (emoji) => emoji.unified === emojiObject.unified
       );
       const incrementedEmoji = {
         ...chosenEmojisCopy[index],
         counter: chosenEmojisCopy[index].counter + 1,
+        usernames: [...chosenEmojisCopy[index].usernames, user.username],
+        uids: [...chosenEmojisCopy[index].uids, user.uid],
       };
       chosenEmojisCopy[index] = incrementedEmoji;
+    } else {
+      chosenEmojisCopy = [...chosenEmojisCopy, newEmoji];
     }
     //sort
     chosenEmojisCopy = chosenEmojisCopy.sort((a, b) => {
@@ -108,7 +136,10 @@ export default function EmojiBar({ user }) {
                 justifyContent: "center",
                 flexDirection: "row",
               }}
-              onClick={() => setPickerVisible(!pickerVisible)}
+              onClick={() => {
+                if (pickerVisible) handleEmojiSave(chosenEmojis);
+                setPickerVisible(!pickerVisible);
+              }}
             />
           }
         />

@@ -16,7 +16,6 @@ const Comment = ({ comment, handleCommentDelete, doodleUid, user }) => {
 
   useEffect(() => {
     const timeUpdateInterval = setInterval(() => {
-      console.log("setting time");
       setDisplayTime(timeDifference(comment.time));
     }, 5000);
 

@@ -79,6 +79,16 @@ function DoodleDetails({
     handleUpdate(commentRemovedDoodle);
   }
 
+  function handleEmojiSave(emojis) {
+    const updatedEmojisDoodle = {
+      ...displayDoodle,
+      emojis,
+    };
+    //to be refactored to only have one source of truth:
+    setSelectedDoodle(updatedEmojisDoodle);
+    setDisplayDoodle(updatedEmojisDoodle);
+    handleUpdate(updatedEmojisDoodle);
+  }
   // const emojiPicker = ['fire', 'sparkles', '']
   // const emojiList = displayDoodle.emojis.length
   //   ? displayDoodle.emojis.map((emoji, i) => <span key={i}>{emoji.emoji}</span>)
@@ -95,7 +105,11 @@ function DoodleDetails({
           style={{ width: "100%", height: "auto" }}
         />
       </Box>
-      <EmojiBar user={user} />
+      <EmojiBar
+        emojis={displayDoodle.emojis}
+        handleEmojiSave={handleEmojiSave}
+        user={user}
+      />
       <CommentSection
         comments={displayDoodle.comments}
         doodleUid={displayDoodle.uid}

@@ -1,5 +1,4 @@
 export function timeDifference(previous) {
-  console.log(previous);
   var msPerMinute = 60 * 1000;
   var msPerHour = msPerMinute * 60;
   var msPerDay = msPerHour * 24;
