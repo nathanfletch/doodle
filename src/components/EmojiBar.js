@@ -17,7 +17,8 @@ export default function EmojiBar({ emojis, handleEmojiSave, user }) {
   const onEmojiClick = (event, emojiObject) => {
     let chosenEmojisCopy = [...chosenEmojis];
     const newEmoji = {
-      ...emojiObject,
+      unified: emojiObject.unified,
+      emoji: emojiObject.emoji,
       counter: 1,
       usernames: [user.username],
       uids: [user.uid],
