@@ -41,10 +41,15 @@ export default function DoodleCanvas(props) {
       return { ...prevDoodle, dataUrl };
     });
     setLocalHue(hue);
+    setRotationAdjustments({
+      x: [],
+      y: [],
+    });
+    setRotationOffset(0);
   };
 
   const draw = (e) => {
-    const ctx = ctxRef.current; // makes it look cleaner
+    const ctx = ctxRef.current;
 
     ctx.strokeStyle = `hsla(${localHue}, ${saturation}%, ${lightness}%, ${opacity}%)`;
     ctx.lineJoin = "round";

@@ -15,7 +15,6 @@ import {
 import { useLocalStorageState } from "../custom-hooks";
 import { sampleComments } from "../sample-comments";
 import { firebase, firestore } from "../firebase";
-// import { useHistory } from "react-router-dom";
 
 function App() {
   const [currentDoodle, setCurrentDoodle] = useLocalStorageState(
@@ -28,15 +27,12 @@ function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userStatus) => {
       if (userStatus) {
-        console.log("user data from firebase: ");
         const fetchedUser = {
           uid: userStatus.uid,
           username: userStatus.displayName,
         };
-        console.log(fetchedUser);
         setUser(fetchedUser);
       } else {
-        console.log("user isn't signed in on firebase");
         setUser(null);
       }
     });
@@ -66,8 +62,6 @@ function App() {
       };
       newDoc.set(doodleInfo);
       setCurrentDoodle(doodleInfo);
-      //eventually stop doing this once they make an account - on account creation, delete key from local storage and add the username to doodles in the db
-      // setFakeDb((prevDb) => [...prevDb, doodleInfo]);
     }
   };
 

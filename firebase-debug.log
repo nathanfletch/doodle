@@ -1,0 +1,14 @@
+[debug] [2021-12-23T22:43:44.310Z] ----------------------------------------------------------------------
+[debug] [2021-12-23T22:43:44.313Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\natha\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2021-12-23T22:43:44.314Z] CLI Version:   10.0.1
+[debug] [2021-12-23T22:43:44.314Z] Platform:      win32
+[debug] [2021-12-23T22:43:44.314Z] Node Version:  v16.2.0
+[debug] [2021-12-23T22:43:44.325Z] Time:          Thu Dec 23 2021 14:43:44 GMT-0800 (Pacific Standard Time)
+[debug] [2021-12-23T22:43:44.326Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-12-23T22:43:44.460Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-12-23T22:43:44.461Z] > authorizing via signed-in user (nathan.fletcher@gmail.com)
+[debug] [2021-12-23T22:43:44.461Z] [iam] checking project doodle-37d6d for permissions ["firebase.projects.get"]
+[debug] [2021-12-23T22:43:44.467Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-12-23T22:43:44.469Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>

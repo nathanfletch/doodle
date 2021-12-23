@@ -42,7 +42,6 @@ function AccountPage({ user, setUser, setCurrentDoodle }) {
         console.log("Successfully signed out!");
         setUser(null);
         setCurrentDoodle({});
-        //clear local storage
       })
       .catch(function (error) {
         console.log(error.message);

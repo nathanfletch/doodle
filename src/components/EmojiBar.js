@@ -33,7 +33,6 @@ export default function EmojiBar({ emojis, handleEmojiSave, user }) {
       if (chosenEmojis[prevUserEmojiIndex].counter === 1) {
         chosenEmojisCopy.splice(prevUserEmojiIndex, 1);
       } else {
-        // chosenEmojisCopy[prevUserEmojiIndex]
         const decrementedEmoji = {
           ...chosenEmojisCopy[prevUserEmojiIndex],
           counter: chosenEmojisCopy[prevUserEmojiIndex].counter - 1,
