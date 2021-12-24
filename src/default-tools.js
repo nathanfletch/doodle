@@ -10,7 +10,7 @@ export const defaultTools = [
   {
     name: "Speed",
     type: "Rotation",
-    value: 7,
+    value: 10,
     min: 0,
     max: 15,
     id: 1,
@@ -50,7 +50,7 @@ export const defaultTools = [
   {
     name: "Number",
     type: "Line",
-    value: 3,
+    value: 8,
     min: 1,
     max: 10,
     id: 6,
@@ -58,7 +58,7 @@ export const defaultTools = [
   {
     name: "Width",
     type: "Line",
-    value: 7,
+    value: 9,
     min: 1,
     max: 12,
     id: 7,
