@@ -20,7 +20,6 @@ const Comment = ({ comment, handleCommentDelete, doodleUid, user }) => {
     }, 5000);
 
     return () => {
-      console.log("unmounting, clearing");
       clearInterval(timeUpdateInterval);
     };
   }, [comment.time]);

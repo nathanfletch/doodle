@@ -19,7 +19,6 @@ function DoodleDetails({
   useEffect(() => {
     if (selectedDoodle || id === "new") return;
 
-    console.log("fetching");
     const fetchData = async () => {
       try {
         firestore
@@ -28,7 +27,6 @@ function DoodleDetails({
           .get()
           .then((doc) => {
             if (doc.exists) {
-              console.log("Document data:", doc.data());
               setDisplayDoodle(doc.data());
             } else {
               console.log("No such document!");

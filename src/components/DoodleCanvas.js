@@ -102,9 +102,7 @@ export default function DoodleCanvas(props) {
         setDrawing(true);
         setCoords({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
       }}
-      // onTouchStart={(e) => console.log(e)}
       onTouchStart={(e) => {
-        console.log(e);
         setDrawing(true);
         setCoords({ x: e.touches[0].clientX, y: e.touches[0].clientY });
       }}

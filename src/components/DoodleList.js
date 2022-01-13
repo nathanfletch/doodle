@@ -15,7 +15,6 @@ export default function DoodleList({ doodles, handleSelect }) {
     >
       <ImageList variant="masonry" cols={3} gap={1}>
         {doodles.map((item) => {
-          console.log(item.dataUrl);
           return (
             <ImageListItem key={item.time}>
               <img

@@ -7,7 +7,6 @@ function MyDoodles({ setCurrentDoodle, user }) {
   const [doodles, setDoodles] = useState([]);
   const history = useHistory();
   const id = useParams();
-  console.log(id);
 
   function handleSelectMine(doodle) {
     setCurrentDoodle(doodle);
@@ -15,7 +14,6 @@ function MyDoodles({ setCurrentDoodle, user }) {
   }
 
   useEffect(() => {
-    console.log("fetching");
     const fetchData = async () => {
       try {
         firestore
@@ -23,7 +21,6 @@ function MyDoodles({ setCurrentDoodle, user }) {
           .where("uid", "==", user.uid)
           .get()
           .then((querySnapshot) => {
-            console.log(querySnapshot);
             querySnapshot.forEach((doc) => {
               setDoodles((prevDoodles) => [...prevDoodles, doc.data()]);
             });

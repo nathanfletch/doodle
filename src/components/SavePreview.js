@@ -33,10 +33,8 @@ function SavePreview({
     const commentIndex = currentDoodle.comments.findIndex(
       (comment) => comment.time === time
     );
-    console.log("index:", commentIndex);
     const commentRemovedCommentsCopy = [...currentDoodle.comments];
     commentRemovedCommentsCopy.splice(commentIndex, 1);
-    console.log(commentRemovedCommentsCopy);
     const commentedRemovedDoodle = {
       ...currentDoodle,
       comments: commentRemovedCommentsCopy,

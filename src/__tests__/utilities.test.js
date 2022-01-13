@@ -7,7 +7,6 @@ describe("timeDifference", () => {
     // const expected = "hi";
     //act
     const result = timeDifference(input);
-    console.log(result);
     //assert
     expect(result).toEqual("1s");
   });

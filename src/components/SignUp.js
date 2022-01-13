@@ -1,9 +1,10 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
+import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -16,6 +17,8 @@ import "firebase/compat/auth";
 const theme = createTheme();
 
 export default function SignUp({ setMode }) {
+  const [error, setError] = useState(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -36,11 +39,15 @@ export default function SignUp({ setMode }) {
             setMode("signin");
           })
           .catch((error) => {
-            console.log("couldn't update display name: " + error.message);
+            setError(
+              "Sorry, we couldn't create your account. Please try a different username and password."
+            );
           });
       })
       .catch(function (error) {
-        console.log("couldn't create user", error.message);
+        setError(
+          "Sorry, we couldn't create your account. Please try a different username and password."
+        );
       });
   };
 
@@ -102,6 +109,7 @@ export default function SignUp({ setMode }) {
             >
               Sign Up
             </Button>
+            {error ? <Alert severity="error">{error}</Alert> : null}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link onClick={() => setMode("signin")} variant="body2">

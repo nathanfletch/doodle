@@ -8,7 +8,6 @@ function OthersDoodles({ setSelectedDoodle, user }) {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("fetching");
     const fetchData = async () => {
       try {
         firestore

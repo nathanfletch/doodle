@@ -85,7 +85,6 @@ export default function EmojiBar({ emojis, handleEmojiSave, user }) {
       return b.counter - a.counter;
     });
     setChosenEmojis(chosenEmojisCopy);
-    console.log(chosenEmojis);
   };
 
   return (

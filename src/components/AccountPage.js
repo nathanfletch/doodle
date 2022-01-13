@@ -39,7 +39,6 @@ function AccountPage({ user, setUser, setCurrentDoodle }) {
       .auth()
       .signOut()
       .then(function () {
-        console.log("Successfully signed out!");
         setUser(null);
         setCurrentDoodle({});
       })

@@ -34,14 +34,12 @@ export default function SignIn({ setUser, setMode }) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(function (signInObject) {
-        console.log("Successfully signed in!");
         setUser({ username, uid: signInObject.user.uid });
         history.push("/");
       })
       .catch(function (error) {
-        console.dir(error);
         setError(
-          "Sorry, we couldn't log you in. Please check your information or create a new account."
+          "Sorry, we couldn't log you in. Please try again or create a new account."
         );
       });
   };
