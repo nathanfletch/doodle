@@ -11,8 +11,7 @@ This app provides a canvas for users to have fun creating doodle art, save their
 - React
 - Material UI
 - HTML Canvas
-- Local Storage
-- Firebase
+- Firebase Firestore
 
 ## Website
 

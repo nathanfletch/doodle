@@ -25,7 +25,6 @@ export default function SignIn({ setUser, setMode }) {
     const username = data.get("username");
     const email = username + "@placeholder.com";
     const password = data.get("password");
-    console.log(username, password);
 
     firebase
       .auth()

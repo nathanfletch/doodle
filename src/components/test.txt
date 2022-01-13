@@ -1,0 +1,24 @@
+2 input numbers - 2nd is greater than first (ideally) - input validation - number or text
+sum of the integers
+
+1, 4 - 1+ 2 + 3 + 4 = 10
+display 10
+
+function sumInputs(first, second) {
+  let sum = 0;
+
+  for(let i = first; i <= second; i++) {
+    sum += i;
+  }
+
+  return sum;
+}
+
+<input type="number" min="1>
+
+<p>{result}</p>
+
+"the second num must be larger than than the first"
+
+
+

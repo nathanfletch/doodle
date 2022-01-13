@@ -48,7 +48,7 @@ export default function DoodleCanvas(props) {
     setRotationOffset(0);
   };
 
-  const draw = (e) => {
+  const draw = (x, y) => {
     const ctx = ctxRef.current;
 
     ctx.strokeStyle = `hsla(${localHue}, ${saturation}%, ${lightness}%, ${opacity}%)`;
@@ -73,8 +73,8 @@ export default function DoodleCanvas(props) {
 
       //end line
       ctx.lineTo(
-        e.offsetX + xEndLineRotationAdjustment,
-        e.offsetY + yEndLineRotationAdjustment
+        x + xEndLineRotationAdjustment,
+        y + yEndLineRotationAdjustment
       );
       setRotationAdjustments((prevRotationAdjustments) => {
         prevRotationAdjustments.x[i] = xEndLineRotationAdjustment;
@@ -87,7 +87,7 @@ export default function DoodleCanvas(props) {
     }
     ctx.stroke();
 
-    setCoords({ x: e.offsetX, y: e.offsetY });
+    setCoords({ x: x, y: y });
     setRotationOffset(
       (rotationOffset) => (rotationOffset += rotationSpeedRadians)
     );
@@ -102,13 +102,26 @@ export default function DoodleCanvas(props) {
         setDrawing(true);
         setCoords({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
       }}
+      // onTouchStart={(e) => console.log(e)}
+      onTouchStart={(e) => {
+        console.log(e);
+        setDrawing(true);
+        setCoords({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+      }}
       onMouseMove={(e) => {
         if (drawing) {
-          draw(e.nativeEvent);
+          draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+        }
+      }}
+      onTouchMove={(e) => {
+        if (drawing) {
+          draw(e.touches[0].clientX, e.touches[0].clientY);
         }
       }}
       onMouseUp={handleDrawEnd}
       onMouseOut={handleDrawEnd}
+      onTouchEnd={handleDrawEnd}
+      onTouchCancel={handleDrawEnd}
       ref={canvasRef}
     ></canvas>
   );
