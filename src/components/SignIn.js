@@ -1,10 +1,11 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
+import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -18,9 +19,12 @@ const theme = createTheme();
 
 export default function SignIn({ setUser, setMode }) {
   const history = useHistory();
+  const [error, setError] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setError(null);
+
     const data = new FormData(event.currentTarget);
     const username = data.get("username");
     const email = username + "@placeholder.com";
@@ -35,7 +39,10 @@ export default function SignIn({ setUser, setMode }) {
         history.push("/");
       })
       .catch(function (error) {
-        console.log(error.message);
+        console.dir(error);
+        setError(
+          "Sorry, we couldn't log you in. Please check your information or create a new account."
+        );
       });
   };
 
@@ -97,6 +104,7 @@ export default function SignIn({ setUser, setMode }) {
             >
               Sign In
             </Button>
+            {error ? <Alert severity="error">{error}</Alert> : null}
             <Grid container>
               <Grid item>
                 <Link onClick={() => setMode("signup")} variant="body2">

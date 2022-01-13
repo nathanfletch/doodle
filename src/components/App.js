@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userStatus) => {
-      if (userStatus) {
+      if (userStatus && userStatus.displayName) {
         const fetchedUser = {
           uid: userStatus.uid,
           username: userStatus.displayName,
@@ -39,8 +39,6 @@ function App() {
   }, []);
 
   const handleUpdate = (doodle) => {
-    console.log(doodle);
-    console.log(`updating ${doodle.title}, id ${doodle.id}`);
     firestore.collection("doodles").doc(doodle.id).update(doodle);
   };
 

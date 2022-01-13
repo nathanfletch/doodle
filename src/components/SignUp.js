@@ -33,7 +33,6 @@ export default function SignUp({ setMode }) {
             displayName: username,
           })
           .then(() => {
-            console.log("user: ", user.displayName);
             setMode("signin");
           })
           .catch((error) => {
